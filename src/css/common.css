@@ -16,3 +16,49 @@ img {
   display: block;
   max-width: 100%;
 }
+.switcherButtons{
+  margin: -10px;
+  padding: 100px 0;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button{
+  height: 40px;
+  min-width: 120px;
+  margin: 10px;
+  padding: 10px 0;
+  
+  text-align: center;
+  text-transform: uppercase;
+
+  border-color: transparent;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  box-shadow: #212121 2px 4px 6px;
+}
+
+button:hover, button:focus{
+  font-weight: bold;
+}
+
+button:disabled{
+  font-weight: normal;
+
+  cursor: no-drop;
+
+  box-shadow: #212121 1px 2px 6px;
+}
+
+[data-start] {
+  background-color: rgb(170, 238, 185);
+  
+}
+
+[data-stop]{
+  background-color:rgb(238, 172, 170);
+}

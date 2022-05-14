@@ -111,5 +111,6 @@ button:disabled{
 /* task-3 styles */
 
 .form button{
+  min-width: 160px;
   background-color: aqua;
 }

@@ -36,8 +36,10 @@ const createDelay = (e) => {
   let step = Number(delayStep.value);
   let amount = Number(promiseCount.value);
 
-  if (delay >= 0 && step >= 0) {      
+  if (delay >= 0 && step >= 0) {  
+    
     for (let i = 1; i <= amount; i += 1){
+
       if (i == 1) {
         delay = Number(delayInput.value);    
       }
@@ -45,10 +47,10 @@ const createDelay = (e) => {
         delay += step;
       }
       
-      console.log(delay);
       createPromise(i, delay)
     }
-  } else {
+  }
+  else {
     Notify.failure('please, enter correct value')
   }
 }

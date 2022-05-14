@@ -16,6 +16,7 @@ img {
   display: block;
   max-width: 100%;
 }
+/* task-1 styles */
 .switcherButtons{
   margin: -10px;
   padding: 100px 0;
@@ -34,7 +35,7 @@ button{
   text-align: center;
   text-transform: uppercase;
 
-  border-color: transparent;
+  border:1px solid #212121;
   border-radius: 5px;
 
   cursor: pointer;
@@ -51,6 +52,7 @@ button:disabled{
 
   cursor: no-drop;
 
+  border-color: transparent;
   box-shadow: #212121 1px 2px 6px;
 }
 
@@ -61,4 +63,53 @@ button:disabled{
 
 [data-stop]{
   background-color:rgb(238, 172, 170);
+}
+
+/* task-2 styles */
+
+.timerInput{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#datetime-picker{
+  height: 40px;
+  width: 140px;
+  background-color: rgba(139, 209, 241, 0.905);
+  border: 1px solid #212121;
+  border-radius: 4px;
+  box-shadow: #212121 1px 2px 6px;
+
+  text-align: center;
+}
+.timer{
+  display:flex;
+  justify-content: center;
+
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+.field{
+  margin: 5px;
+  width: 100px;
+  height: 60px;
+
+  border: 2px solid #212121;
+  border-radius: 4px;
+  background-color: rgb(240, 222, 144);
+  box-shadow: #212121 1px 2px 6px;
+
+}
+.field span{
+  display: block;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* task-3 styles */
+
+.form button{
+  background-color: aqua;
 }

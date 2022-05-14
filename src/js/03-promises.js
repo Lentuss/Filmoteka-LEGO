@@ -9,7 +9,7 @@ const submitBtn = document.querySelector('button[type="submit"]');
 function createPromise(position, delay) {
 
   const shouldResolve = Math.random() > 0.3;
-  const newPromise = new Promise ((resolve, reject) => {
+  return new Promise ((resolve, reject) => {
     setTimeout(() => {
       if (shouldResolve) {
         // Fulfill
@@ -21,7 +21,6 @@ function createPromise(position, delay) {
       }    
     }, delay)
   })
-  newPromise
   .then(value => {
     Notify.success(value);
   })
@@ -29,8 +28,6 @@ function createPromise(position, delay) {
     Notify.failure(error);
   });
 }
-
-
 
 const createDelay = (e) => {
   e.preventDefault() 

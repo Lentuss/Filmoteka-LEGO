@@ -3,11 +3,12 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 const startBtn = document.querySelector("button[data-start]");
-const dateInput = document.querySelector("#datetime-picker")
+const dateInput = document.querySelector("#datetime-picker");
 const secondsDiv = document.querySelector('[data-seconds]');
 const minutesDiv = document.querySelector('[data-minutes]');
 const hoursDiv = document.querySelector('[data-hours]');
-const daysDiv = document.querySelector('[data-days]')
+const daysDiv = document.querySelector('[data-days]');
+const fields = document.querySelectorAll(".field");
 
 startBtn.setAttribute("disabled", true)
 
@@ -56,7 +57,8 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
-  }
+}
+  
 
 const startCount = () => {
 
@@ -69,31 +71,43 @@ const startCount = () => {
   timerId = setInterval(
     timeUpdate, 1000);
 
-function setTimer(){
-  let { days, hours, minutes, seconds } = convertMs(timeDifference);
+  function setTimer() {
+  
+    let { days, hours, minutes, seconds } = convertMs(timeDifference);
 
-  secondsDiv.textContent = seconds;
-  minutesDiv.textContent = minutes;
-  hoursDiv.textContent = hours;
-  daysDiv.textContent = days;
+    secondsDiv.textContent = seconds;
+    minutesDiv.textContent = minutes;
+    hoursDiv.textContent = hours;
+    daysDiv.textContent = days;
   }
-   
- function timeUpdate () {
+  
+    const animate = () => {   
+      if (timerId) {
+        fields.forEach((el) => {
+          el.classList.add("onCount");
+        })
+      }
+    }
+
+  function timeUpdate () {
   
    if (timeDifference > 1000) {
       
       timeDifference -= 1000;
-      setTimer()
+     setTimer();
+     animate();
+     
    }
    else {
-
      clearInterval(timerId);
+     fields.forEach((el) => {
+        el.classList.remove("onCount");
+     })
 
      Notify.info('The desired time is coming! Please refresh the page to select a new countdown date');
-   }
-    }
+    } 
   }
-
+}
 
 startBtn.addEventListener("click", startCount);
 

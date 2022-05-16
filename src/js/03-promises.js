@@ -21,12 +21,7 @@ function createPromise(position, delay) {
       }    
     }, delay)
   })
-  .then(value => {
-    Notify.success(value);
-  })
-  .catch(error => {
-    Notify.failure(error);
-  });
+  
 }
 
 const createDelay = (e) => {
@@ -48,6 +43,12 @@ const createDelay = (e) => {
       }
       
       createPromise(i, delay)
+      .then(value => {
+    Notify.success(value);
+  })
+  .catch(error => {
+    Notify.failure(error);
+  });
     }
   }
   else {

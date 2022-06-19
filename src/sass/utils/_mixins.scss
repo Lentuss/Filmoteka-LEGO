@@ -1,0 +1,39 @@
+/* Миксин для медиаправил. Пример использования: @include respond-to (tablet-only){ } */
+
+// @param {String} $breakpoint - Breakpoint name
+// @require $breakpoints
+
+@mixin respond-to($breakpoint) {
+    // If the key exists in the map
+    @if map-has-key($breakpoints, $breakpoint) {
+
+        // Prints a media query based on the value
+        @media screen and #{inspect(map-get($breakpoints, $breakpoint))} {
+            @content;
+        }
+    }
+    // If the key doesn't exist in the map
+    @else {
+        @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        +"Available breakpoints are: #{map-keys($breakpoints)}.";
+    }
+}
+
+/* Миксин для свойств transition. Через запятую вносятся все свойства, к которым применяется. 
+Пример: @include transit (color, background-color); */
+
+@mixin transit($property...) {
+    transition-property: $property;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+/* Миксин для центрирования флексами. По умолчанию все свойства center.
+Пример: @include centered; или @include centered($justify:space-between);*/
+
+@mixin centered($display: flex, $justify: center, $align: center, $textalign: center) {
+    display: $display;
+    justify-content: $justify;
+    align-items: $align;
+    text-align: $textalign;
+}

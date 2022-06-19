@@ -1,0 +1,32 @@
+$border-radius: 5px;
+
+// colors
+$accent-color: #ff6b08;
+$second-accent-color: #ff6b01;
+$header-text-color: #ffffff;
+$main-text-color: #000000;
+$second-text-color: #8C8C8C;
+$footer-text-color: #545454;
+$footer-bg-color: #F7F7F7;
+$error-text-color: #FF001B;
+
+// mobile gaps
+$mobile-header-links-gap: 40px;
+$mobile-films-vertical-gap: 20px;
+$mobile-pagination-top-bottom-margin: 40px;
+$mobile-buttons-gap: 20px;
+$mobile-modal-buttons-gap: 20px;
+
+// tablet gaps
+$tablet-films-vertical-gap: 32px;
+$tablet-pagination-top-bottom-margin: 40px;
+$tablet-buttons-gap: 20px;
+
+// desktop gaps
+$desktop-pagination-top-bottom-margin: 60px;
+$desktop-buttons-gap: 16px;
+$desktop-modal-buttons-gap: 16px;
+
+// backdrop
+$backdrop-color: #000000;
+$backdrop-opacity: 0.25;

@@ -1,0 +1,264 @@
+.details{
+    &__backdrop{
+        display: flex;
+        justify-content: center;
+
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+
+        left: 0px;
+        top: 0px;
+        z-index: 1;
+        transition: 0.5s linear;
+
+        overflow-y: scroll;
+      
+        // background-image: url(https://image.tmdb.org/t/p/original/rlCRM7U5g2hcU1O8ylGcqsMYHIP.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    &__modal{
+        display: block;
+        position: absolute;
+        width: 90%;
+
+        top: 20px;
+
+        z-index: 2;
+        
+        padding: 48px 20px 40px;
+
+        background-color: rgb(255, 255, 255);
+    
+ 
+        @include respond-to (tablet){
+            top: 219px;
+            width: 704px;
+
+            padding: 40px 72px 40px 36px;
+        }
+
+        @include respond-to (desktop){
+            top: 151px;
+            width: 814px;
+
+            padding: 40px 16px;
+        }
+    }
+
+    &__close-button{
+    position: absolute;
+        @include centered;
+
+        top: 8px;
+        right: 8px;
+    
+        min-width: 30px;
+        min-height: 30px;
+        padding: 0;
+
+        background-color: $header-text-color;
+
+        &:hover,&:focus{
+            fill: $accent-color;
+        }
+    }
+
+    &__box{
+        display: block;
+        margin: 0 auto;
+        width: 240px;
+
+        @include respond-to (tablet){
+            display: flex;
+            justify-content: center;
+
+            width: 100%;
+        }
+        
+    }
+
+    &__poster{
+        display: block;
+        margin-bottom: 20px;
+
+        @include respond-to (tablet){
+            margin-right: 68px;
+        }
+        @include respond-to (desktop) {
+            margin-right: 16px;
+            margin-bottom: 0;
+        }   
+    }
+
+    &__image{
+        display: block;
+        border-radius: 5px;
+        width: 100%;
+
+        @include respond-to (tablet) {
+            width: 264px;
+            height: 374px;
+        }
+        @include respond-to (desktop){
+            width: 375px;
+            height: 478px;
+        }    
+        }
+
+    &__info{
+        display: block;
+
+        @include respond-to (tablet){
+            width: 264px;
+        }
+
+        @include respond-to (desktop){
+            width: 391px;
+        }
+    }
+
+    &__title{
+        margin-bottom: 20px;
+
+        font-size: 20px;
+        line-height: 1.15;
+        font-weight: 500;
+
+        text-transform: uppercase;
+
+        @include respond-to (desktop){
+            font-size: 30px;
+            line-height: 1.17;
+        }
+    }
+    
+    &__attributesList li:not(:last-child){
+        margin-bottom: 8px;
+    }
+
+    &__attributesList {
+        margin-bottom: 20px;
+    }
+
+    &__attribute{
+        display: inline-block;
+        width: 152px;
+
+        color: $second-text-color;
+        font-size: 12px;
+        line-height: 1.33;
+        font-weight: 500;
+
+        &-value{
+        
+            font-size: 12px;
+            line-height: 1.17;
+            font-weight: 500;
+        }
+
+        &-vote{
+            display: inline-block;
+            width: 36px;
+            height: 16px;
+
+            background-color: $accent-color;
+            border-radius: 5px;
+            color: #fff;
+            line-height: 1.33;
+            text-align: center;//выровнять вертикаль   
+        }
+
+        &-title{
+            text-transform: uppercase;
+        }
+    }
+
+    &__subtitle{
+        margin-bottom: 8px;
+
+        text-transform: uppercase;
+        font-size: 12px;
+        line-height: 1.33;
+        font-weight: 500;
+    }
+
+    &__description{
+        margin-bottom: 20px;
+
+        font-size:12px;
+        line-height: 1.67;
+        font-weight: 500;
+
+        @include respond-to (tablet) {
+            margin-bottom: 36px;
+            }
+        
+        @include respond-to (desktop) {
+                margin-bottom: 20px;
+            }      
+    }
+
+    &__buttonSet{
+        display: flex;
+    }
+}
+
+.details__button{
+   
+    width: 110px;
+    height: 44px;
+    border-radius: 5px;
+    padding: 6px 10px 6px;
+  
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 1.33;
+    font-weight: 500;
+
+    border: 1px solid $main-text-color;
+    background-color: $header-text-color;
+
+
+    @include respond-to (tablet){
+        width: 125px;
+    }
+
+    @include respond-to (desktop){
+        width: 136px;
+    }
+
+    @include transit(background-color, color, border-color);
+
+    &:hover,
+    &:focus {
+        background-color: $accent-color;
+        color: $header-text-color;
+        border-color: $accent-color;
+    }  
+}
+
+.details__button:not(:last-child){
+
+    margin-right: 20px;
+
+    @include respond-to (tablet){
+        margin-right: 15px;
+    }
+
+    @include transit(background-color, color, border);
+  
+}
+  
+.isHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}

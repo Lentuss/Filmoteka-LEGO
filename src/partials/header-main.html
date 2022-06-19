@@ -1,0 +1,69 @@
+<header class="header-section header-section__list">
+
+    <h2 class="visually-hidden">Movies</h2>
+
+    <div class="borders header-container">
+
+        <nav class="header-section__navigation">
+            <a href="./index.html">
+                <div class="header-logo">
+                    <svg class="header-logo__icon" width="25" height="25">
+                        <use href="./images/sprite.svg#film" />
+                    </svg>
+                    <p class="header-logo__label">Filmoteka</p>
+                </div>
+            </a>
+
+            <ul class="header-btns">
+                <li class="header-btns__item"><button type="button" data-action="header-home-button"
+                        class="header-btns__label is-current">Home</button> </li>
+                <li class="header-btns__item"><button type="button" data-action="header-library-button"
+                        class="header-btns__label">Log In</button></li>
+            </ul>
+        </nav>
+
+        <form class="header-form" id="search-form">
+            <input class="header-form__input" 
+            type="text" 
+            autocomplete="off" 
+            placeholder="Пошук фільмів" 
+            id="input-form" 
+            name="searchQuery"/>
+
+
+            <button type="submit" data-action="search-button" class="header-form__search">
+                <svg width="12" height="12">
+                    <use href="./images/sprite.svg#search" />
+                </svg>
+            </button>
+        </form>
+
+<!-- color theme switcher -->
+        <label class="switch">
+            <input type="checkbox" name="color" id="themeSwitcher">
+            <span class="slider"></span>
+        </label>
+
+<!-- Sort buttons -->
+<label for="select" class="header__label-select">
+    Select by:
+    <select name="select" id="select" class="header__select">
+        <option value="abc">ABC</option>
+        <option value="year">Year</option>
+        <option value="rating">Rating</option>
+    </select>
+</label>
+
+<!-- Error-message -->
+        <p class="search-error visually-hidden">
+            Search result not successful. Enter the correct movie name.
+        </p>
+    </div>
+
+    <!-- Language buttons -->
+    <div class="lang df">
+        <button value="en" class="active" id="lang-en">EN</button>
+        <button value="uk" id="lang-uk">UK</button>
+      </div>
+
+</header>

@@ -1,2 +1,19 @@
 @import './common';
-@import './example';
+@import './utils/variables';
+@import './utils/breakpoints';
+@import './utils/mixins';
+
+@import './components/header-main';
+@import './components/login-modal-window';
+@import './components/main';
+@import './components/details';
+@import './components/loader';
+@import './components/scroll-up';
+@import './components/slider';
+
+@import './components/themeSwitcher';
+
+
+@import './components/footer';
+@import './components/footer-modal';
+// @import './components/describe-window';

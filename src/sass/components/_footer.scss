@@ -1,0 +1,70 @@
+
+.footer {
+    background-color: #F7F7F7;
+    width: 100%;
+
+    &__section {
+        margin: 0 auto;
+        padding: 30px 36px 30px 48px;
+        text-align: center;
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.14;
+
+        color: #545454;
+
+        @include respond-to(tablet) {
+            @include centered;
+            font-size: 16px;
+            line-height: 1.19;
+        }
+    }
+
+    &__section--flex {
+        @include centered;
+    }
+
+    &__section--text {
+        @include respond-to(tablet) {
+            margin-left: 5px;
+        }
+    }
+
+
+    &__section--link {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.14;
+
+        &:hover,
+        &:focus {
+            color: #ff6b08;
+        }
+
+        @include respond-to (tablet-only) {
+            font-size: 16px;
+            line-height: 1.19;
+        }
+
+        border:none;
+        background-color: transparent;
+        color:#545454;
+        text-decoration-line: underline;
+        cursor: pointer;
+        padding: 0;
+
+
+    }
+
+    &__section--svg {
+        margin-right: 10px;
+        margin-left: 10px;
+        width: 14px;
+        height: 12px;
+    }
+}

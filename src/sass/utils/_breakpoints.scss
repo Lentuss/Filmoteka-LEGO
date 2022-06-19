@@ -1,0 +1,12 @@
+$breakpoints: (
+    'mobile': (min-width: 320px,
+    ),
+    'mobile-only': (max-width: 767px,
+    ),
+    'tablet': (min-width: 768px,
+    ),
+    'tablet-only': (max-width: 1023px,
+    ),
+    'desktop': (min-width: 1024px,
+    ),
+    ) !default;

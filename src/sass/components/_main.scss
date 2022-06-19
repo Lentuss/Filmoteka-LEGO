@@ -1,0 +1,195 @@
+.section {
+    background-color: $header-text-color;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    // @media screen and (min-width: 768px) {
+    //     padding-top: 60px;
+    //     padding-bottom: 60px;
+    // }
+}
+
+.container {
+    padding: 0 20px;
+    margin: 0 auto;
+
+    @media screen and (min-width: 320px) {
+        width: 320px;
+        margin: 0 auto;
+    }
+
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+        width: 768px;
+        padding: 0 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: 1024px;
+    }
+}
+
+.main__button-list {
+    display: flex;
+    margin: 0 auto 20px;
+
+    @media screen and (min-width: 768px) {
+        margin: 0 auto 32px;
+    }
+}
+
+.main__button-item:first-child {
+    margin-right: 20px;
+
+    @media screen and (min-width: 768px) {
+        margin-right: 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-right: 16px;
+    }
+}
+
+.main__button {
+
+    width: 130px;
+    height: 44px;
+    border-radius: 5px;
+    padding: 13px 15px;
+
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 1.33;
+    font-weight: 500;
+
+    border: 1px solid $main-text-color;
+    background-color: $header-text-color;
+
+
+    @include respond-to (tablet) {
+        width: 152px;
+    }
+
+    @include respond-to (desktop) {
+        width: 147px;
+        height: 42px;
+    }
+
+    @include transit(background-color, color, border-color);
+
+    &:hover,
+    &:focus {
+        background-color: $accent-color;
+        color: $header-text-color;
+        border-color: $accent-color;
+    }
+}
+
+.main__movie-card-list {
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: calc(-1 * 32px);
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin-right: calc(-1 * 16px);
+    }
+}
+
+.main__movie-card-item {
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+        width: calc((100% - 32px * 2) / 2);
+        margin-right: 16px;
+        margin-left: 16px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: calc((100% - 16px * 3) / 3);
+        margin-right: 8px;
+        margin-left: 8px;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 20px;
+        
+        @media screen and (min-width: 768px) {
+            margin-bottom: 0;
+        }
+    }
+
+    &:not(:nth-last-child(-n+2)) {
+        @media screen and (min-width: 768px) {
+            margin-bottom: 32px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            margin-bottom: 0;
+        }
+    }
+
+    &:not(:nth-last-child(-n+3)) {
+        @media screen and (min-width: 1024px) {
+            margin-bottom: 32px;
+        }
+    }
+}
+
+.main__movie-img {
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+
+    @media screen and (min-width: 1024px) {
+        margin-bottom: 8px;
+    }
+}
+
+.main__movie-title {
+    text-transform: uppercase;
+}
+
+.main__movie-title,
+.main__movie-genre {
+    color: $main-text-color;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+}
+
+.main__movie-genre {
+    display: inline;
+    color: $accent-color;
+}
+
+.main__movie-year::before {
+    content: '';
+    width: 1px;
+    height: 10px;
+    margin: 0 3px;
+    display: inline-block;
+    background-color: $accent-color;
+}
+
+.main__movie-raiting {
+    // Для вкладки MyLibrary:
+    // display: inline; 
+    display: none;
+    margin-left: 8px;
+    padding-right: 9px;
+    padding-left: 9px;
+    color: $header-text-color;
+    background-color: $accent-color;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.16;
+    font-weight: 500;
+}
+
+
+

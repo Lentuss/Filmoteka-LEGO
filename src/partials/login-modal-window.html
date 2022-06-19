@@ -1,0 +1,98 @@
+<div class="backdrop backdrop--is-hidden" data-backdrop>
+  <div class="modal">
+    <div id="logInDiv">
+      <form class="logInForm" autocomplete="on" validate id="login-form">
+        <div class="form-container">
+          <label>
+            Email
+            <input
+              type="email"
+              class="inputStyle"
+              name="email"
+              id="input-email"
+            />
+          </label>
+
+          <label>
+            Password
+            <input
+              type="password"
+              class="inputStyle"
+              name="password"
+              id="input-password"
+            />
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          data-action="logIn-submit-btn"
+          class="loginSubmitBtn"
+        >
+          Log In
+        </button>
+      </form>
+    </div>
+    <!-- ==================  SIGN UP =============================== -->
+    <div class="--is-hidden" id="signUpDiv">
+      <form class="logInForm" autocomplete="on" validate id="signup-form">
+        <div class="form-container">
+          <label>
+            Email
+            <input
+              type="email"
+              class="inputStyle"
+              name="email"
+              id="signup-input-email"
+            />
+          </label>
+
+          <label>
+            Password
+            <input
+              type="password"
+              class="inputStyle"
+              name="password"
+              id="signup-input-password"
+            />
+          </label>
+
+          <label>
+            Confirm password
+            <input
+              type="password"
+              class="inputStyle"
+              name="password-confirmation"
+              id="passwordConfirm"
+            />
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          data-action="signup-submit-btn"
+          class="loginSubmitBtn"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
+
+    <button class="modal__closeBtn" data-modal-close>
+      <svg width="11" height="11">
+        <use href="./images/sprite.svg#closeBtnLoginWindow"></use>
+      </svg>
+    </button>
+    <div>
+      <button type="button" class="logInBtn-JS btnStyle">Log In Window</button>
+      <button type="button" class="signUpBtn-JS btnStyle">
+        Sign Up Window
+      </button>
+      <button type="button" class="logOutBtn-JS btnStyle">Logout</button>
+      <button type="button" class="watchedBtn-JS btnStyle">
+        add to watched
+      </button>
+      <button type="button" class="queueBtn-JS btnStyle">add to queue</button>
+    </div>
+  </div>
+</div>

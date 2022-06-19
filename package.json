@@ -3,10 +3,10 @@
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://lentuss.github.io/goit-js-hw-09/",
+  "homepage": "https://lentuss.github.io/Filmoteka-LEGO//",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /goit-js-hw-09/"
+    "build": "parcel build src/*.html --public-url /Filmoteka-LEGO/"
   },
   "repository": {
     "type": "git",

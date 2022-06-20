@@ -1,31 +1,36 @@
 body.light-theme {
   background-color: #fff;
+  color: #000000;
 }
 
-.light-on {
 
-  
-background-color: rgb(20, 208, 64);
+.light-on {  
+background-color: #fff;
+color: #000000;
 }
 
 .dark-on {
-background-color: rgb(136, 62, 27);
-
-color: #fff;
-
-
+  background-color: #333;
+  width: 100%;
+ color: #fff;
 }
 
 body.dark-theme {
 
-background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
-url("../images/home-pc-x2.jpg");
+  background-color: #333;
   color: #fff;
-  background-size: cover;
-  
-  width: 100%;
+
+}
+.button-light{
+  background-color: #fff;
+  color: #000000;
 }
 
+.button-dark{
+  background-color: rgba(128, 128, 128, 0.349);
+  color: #fff;
+
+}
 
 /* The switch - the box around the slider */
 .switch {
@@ -47,7 +52,7 @@ url("../images/home-pc-x2.jpg");
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #333;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -59,17 +64,17 @@ url("../images/home-pc-x2.jpg");
   width: 16px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: #333;
+  background-color: #fff;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #ccc;
+  box-shadow: 0 0 1px orangered;
 }
 
 input:checked + .slider:before {
@@ -85,4 +90,8 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.switch-container{
+  align-items: flex-end;
 }

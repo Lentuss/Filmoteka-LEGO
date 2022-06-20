@@ -58,71 +58,124 @@ const Refs = {
   signUpDiv: document.querySelector('#signUpDiv'),
   logInDiv: document.querySelector('#logInDiv'),
   //==================== PRACTICE =============
-  watchedBtn: document.querySelector('.watchedBtn-JS'),
-  removeBtn: document.querySelector('.removeBtn-JS'),
-  queuedBtn: document.querySelector('.queueBtn-JS'),
-  movieCards: document.querySelector('#movieCardContainer'),
+  queuedBtn: document.querySelector('[data-action="details-queue-btn"]'),
+  details__modal: document.querySelector('.details__modal'),
   //==================== PRACTICE =============
 };
-const watchedArr = [];
 
 //==================== PRACTICE ADD BUTTON LOGIC START =============
 
 //==================== PRACTICE =============
 
-// Refs.watchedBtn.addEventListener('click', addToWatched);
-// Refs.queuedBtn.addEventListener('click', addToQueue);
-Refs.movieCards.addEventListener('click', addToWatched);
-Refs.movieCards.addEventListener('click', removeFromWatched);
+Refs.details__modal.addEventListener('click', addToWatched);
+Refs.details__modal.addEventListener('click', addToQueue);
+Refs.details__modal.addEventListener('click', removeFromWatched);
+Refs.details__modal.addEventListener('click', removeFromQueue);
 
 //==================== PRACTICE =============
 
 //==================== PRACTICE =============
 
 function addToWatched(event) {
-  if (!event.target.classList.contains('watchedBtn-JS')) {
-    return;
-  }
-  console.log(event);
-  const movieID = event.target.getAttribute('movieID');
-  const img =
-    event.target.previousElementSibling.firstElementChild.getAttribute('src');
-  const title =
-    event.target.previousElementSibling.lastElementChild.firstElementChild
-      .textContent;
-  const genres =
-    event.target.previousElementSibling.lastElementChild.lastElementChild
-      .textContent;
-  const year =
-    event.target.previousElementSibling.lastElementChild.lastElementChild
-      .firstElementChild.textContent;
+  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector(
+    '.removeFromWatchedBtn-JS'
+  );
   const uid = auth.lastNotifiedUid;
-  // console.log(movieID);
-  console.dir(event.target);
-  // console.log(title);
-  // console.log(genres);
-  // console.log(year);
+  if (uid) {
+    const movieID = event.target
+      .closest('.details__box')
+      .getAttribute('data-id');
+    const imgPoster = Refs.details__modal
+      .querySelector('.details__image')
+      .getAttribute('src');
+    const titleDetails =
+      Refs.details__modal.querySelector('.details__title').textContent;
+    const genres =
+      Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target
+      .closest('.details__box')
+      .getAttribute('data-date');
 
-  // watchedArr.push(attributeRef.movieID);
-  // console.log(watchedArr)
-
-  addMovieInfoToDataBase(movieID, title, img, genres, year, uid);
-  // console.log(data.watched);
+    if (!event.target.classList.contains('addToWatchedBtn-JS')) {
+      return;
+    } else if (uid) {
+      addMovieInfoToDataBaseWatch(
+        movieID,
+        titleDetails,
+        imgPoster,
+        genres,
+        year,
+        uid
+      );
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
 }
 
 function removeFromWatched(event) {
-  if (!event.target.classList.contains('removeBtn-JS')) {
+  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector(
+    '.removeFromWatchedBtn-JS'
+  );
+  if (!event.target.classList.contains('removeFromWatchedBtn-JS')) {
     return;
   }
-  const movieID = event.target.getAttribute('movieID');
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
   const uid = auth.lastNotifiedUid;
-  removeMovieIDFromDB(uid, movieID);
+  removeMovieIDFromWatched(uid, movieID);
+  addBtn.classList.remove('isHidden');
+  removeBtn.classList.add('isHidden');
 }
 
-function addToQueue() {
-  const movieCardID = document.querySelector('.movieCardID');
-  const movieID = movieCardID.getAttribute('movieID');
-  set(ref(db, 'users/' + uid + '/queue'), ['new movie3', 'new movie4']);
+function addToQueue(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
+  const uid = auth.lastNotifiedUid;
+  if (uid) {
+    const movieID = event.target
+      .closest('.details__box')
+      .getAttribute('data-id');
+    const imgPoster = Refs.details__modal
+      .querySelector('.details__image')
+      .getAttribute('src');
+    const titleDetails =
+      Refs.details__modal.querySelector('.details__title').textContent;
+    const genres =
+      Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target
+      .closest('.details__box')
+      .getAttribute('data-date');
+
+    if (!event.target.classList.contains('addToQueueBtn-JS')) {
+      return;
+    } else if (uid) {
+      addMovieInfoToDataBaseQueue(
+        movieID,
+        titleDetails,
+        imgPoster,
+        genres,
+        year,
+        uid
+      );
+      addBtn.classList.add('isHidden');
+      removeBtn.classList.remove('isHidden');
+    }
+  }
+}
+
+function removeFromQueue(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
+  if (!event.target.classList.contains('removeFromQueueBtn-JS')) {
+    return;
+  }
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
+  const uid = auth.lastNotifiedUid;
+  removeMovieIDFromQueue(uid, movieID);
+  addBtn.classList.remove('isHidden');
+  removeBtn.classList.add('isHidden');
 }
 //==================== PRACTICE =============
 //==================== PRACTICE ADD BUTTON LOGIC END =============
@@ -157,7 +210,6 @@ onAuthStateChanged(auth, user => {
     Refs.logInDiv.setAttribute('style', 'display:flex');
     Refs.signUpDiv.setAttribute('style', 'display:flex');
     Refs.headLogInBtn.textContent = 'Log In';
-    Notiflix.Notify.info('You are successfully Logged Out');
     console.log('User Is Signed Out');
   }
 });
@@ -186,7 +238,7 @@ function onSignUpSubmit(e) {
         console.log(user.uid);
         Notiflix.Notify.success('You Successfully SignUp');
         const userId = user.uid;
-        writeUserData(userId, email, password);
+        // writeUserData(userId, email, password);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -262,13 +314,13 @@ Refs.logOutBtn.addEventListener('click', onLogOutBtn);
 
 //=================== LOG OUT LOGIC START ==================
 function onLogOutBtn(e) {
-  //   const auth = getAuth(app);
   signOut(auth)
     .then(() => {
       // Sign-out successful.
       signupForm.reset();
       loginForm.reset();
       setTimeout(() => {
+        Notiflix.Notify.success('Logout Success');
         console.log('Logout Success');
       }, 1500);
     })
@@ -277,19 +329,6 @@ function onLogOutBtn(e) {
       console.log(error);
       console.log('Logout Failed');
     });
-
-  // onAuthStateChanged(auth, user => {
-  //   if (user) {
-  //     // User is signed in, see docs for a list of available properties
-  //     // https://firebase.google.com/docs/reference/js/firebase.User
-  //     //   console.log(user);
-  //     const uid = user.uid;
-  //     // ...
-  //   } else {
-  //     // User is signed out
-  //     Notiflix.Notify.info('You are successfully Logged Out');
-  //   }
-  // });
 }
 //=================== LOG OUT LOGIC END ==================
 
@@ -328,16 +367,7 @@ function onBackdropClick(event) {
   }
 }
 
-function writeUserData(userId, email, password, imageUrl) {
-  const db = getDatabase();
-  set(ref(db, 'users/' + userId), {
-    email,
-    password,
-    // profile_picture: imageUrl,
-  });
-}
-
-function addMovieInfoToDataBase(movieID, title, img, genres, year, uid) {
+function addMovieInfoToDataBaseWatch(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/watched' + `/${movieID}`), {
@@ -348,17 +378,25 @@ function addMovieInfoToDataBase(movieID, title, img, genres, year, uid) {
   });
 }
 
-function removeMovieIDFromDB(uid, movieID) {
+function removeMovieIDFromWatched(uid, movieID) {
   const db = getDatabase();
 
   remove(ref(db, 'users/' + uid + '/watched' + `/${movieID}`));
 }
 
-///================ STRUCTURE EXAMPLE
-// const users = {
-//   user1: {
-//     watched: ['asdasdasdsa', 'asdadasdas', 'asdasdasd'],
-//     queue: {},
-//   },
-//   user2: {},
-// };
+function addMovieInfoToDataBaseQueue(movieID, title, img, genres, year, uid) {
+  const db = getDatabase();
+
+  set(ref(db, 'users/' + uid + '/queue' + `/${movieID}`), {
+    title,
+    img,
+    genres,
+    year,
+  });
+}
+
+function removeMovieIDFromQueue(uid, movieID) {
+  const db = getDatabase();
+
+  remove(ref(db, 'users/' + uid + '/queue' + `/${movieID}`));
+}

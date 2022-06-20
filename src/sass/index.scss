@@ -4,6 +4,7 @@
 @import './utils/mixins';
 
 @import './components/header-main';
+@import './components/filterGenres';
 @import './components/login-modal-window';
 @import './components/main';
 @import './components/details';
@@ -12,7 +13,7 @@
 @import './components/slider';
 
 @import './components/themeSwitcher';
-
+@import './components/preloader';
 
 @import './components/footer';
 @import './components/footer-modal';

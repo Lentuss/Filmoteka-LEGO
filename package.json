@@ -6,7 +6,8 @@
   "homepage": "https://lentuss.github.io/Filmoteka-LEGO//",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /Filmoteka-LEGO/"
+    "build": "parcel build src/*.html --public-url /Filmoteka-LEGO/",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "axios": "^0.27.2",
     "buffer": "^6.0.3",
     "flatpickr": "^4.6.13",
+    "gh-pages": "^4.0.0",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.5"
   }

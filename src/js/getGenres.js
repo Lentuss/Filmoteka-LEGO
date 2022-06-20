@@ -1,8 +1,9 @@
-import { API_KEY, GENRES_URL } from './apiVariables';
+import allGenres from './genres.json';
 
-export const getGenres = () => {
-  return fetch(`${GENRES_URL}?api_key=${API_KEY}&language=en-US`);
-};
+export function getGenres() {
+  const { genres } = allGenres;
+  return genres;
+}
 
 export const getGenreById = async id => {
   try {
@@ -11,7 +12,6 @@ export const getGenreById = async id => {
     const genresArray = genres.genres;
     genresArray.forEach(genre => {
       if (id === genre.id) {
-
         console.log(genre.name); //for test
         return genre.name;
       }
@@ -20,6 +20,3 @@ export const getGenreById = async id => {
     console.log(error.message);
   }
 };
-
-//тест
-getGenreById(12);

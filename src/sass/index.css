@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url(c:\Users\Anton\Desktop\Репозиторий\Filmoteka-5group\node_modules\modern-normalize\modern-normalize.css);
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -623,7 +624,7 @@ button {
   width: 130px;
   height: 44px;
   border-radius: 5px;
-  padding: 13px 15px;
+  padding: 13px 36px;
   text-transform: uppercase;
   font-size: 12px;
   line-height: 1.33;
@@ -668,13 +669,6 @@ button {
     display: flex;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-    margin-right: calc(-1 * 32px);
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .main__movie-card-list {
-    margin-right: calc(-1 * 16px);
   }
 }
 
@@ -684,17 +678,13 @@ button {
 
 @media screen and (min-width: 768px) {
   .main__movie-card-item {
-    width: calc((100% - 32px * 2) / 2);
-    margin-right: 16px;
-    margin-left: 16px;
+    width: calc((100% - 32px) / 2);
   }
 }
 
 @media screen and (min-width: 1024px) {
   .main__movie-card-item {
-    width: calc((100% - 16px * 3) / 3);
-    margin-right: 8px;
-    margin-left: 8px;
+    width: calc((100% - 16px * 2) / 3);
   }
 }
 
@@ -720,9 +710,27 @@ button {
   }
 }
 
+@media screen and (min-width: 768px) {
+  .main__movie-card-item:nth-child(odd) {
+    margin-right: 32px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .main__movie-card-item:nth-child(odd) {
+    margin-right: 0;
+  }
+}
+
 @media screen and (min-width: 1024px) {
   .main__movie-card-item:not(:nth-last-child(-n+3)) {
     margin-bottom: 32px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .main__movie-card-item:not(:nth-child(3n)) {
+    margin-right: 16px;
   }
 }
 
@@ -745,6 +753,7 @@ button {
 .main__movie-title,
 .main__movie-genre {
   color: #000000;
+  font-family: roboto;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
@@ -755,7 +764,7 @@ button {
   color: #ff6b08;
 }
 
-.main__movie-year::before {
+.main_movie-year::before {
   content: '';
   width: 1px;
   height: 10px;
@@ -793,6 +802,7 @@ button {
   -webkit-transition: 0.5s linear;
   transition: 0.5s linear;
   overflow-y: scroll;
+  background-image: url(https://image.tmdb.org/t/p/original/rlCRM7U5g2hcU1O8ylGcqsMYHIP.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -1181,28 +1191,19 @@ button {
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.upBtn:hover {
-  fill: #ff6b08;
-  border: 1px solid #ff6b08;
-  -webkit-transition-property: background-color, fill, border-color;
-  transition-property: background-color, fill, border-color;
-  -webkit-transition-duration: 250ms;
-          transition-duration: 250ms;
-  -webkit-transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
-          transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
-}
-
 .upBtn__svg {
   width: 20px;
   height: 20px;
 }
 
+.upBtn:hover {
+  fill: #ff6b08;
+  border: 1px solid #ff6b08;
+}
+
 .slider-section {
   margin-top: 15px;
   margin-bottom: 15px;
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
 }
 
 .wrapper {
@@ -1249,31 +1250,21 @@ button {
   margin-right: 10px;
 }
 
-.slider-images {
-  border-radius: 5px;
-}
-
-.slider-headline {
-  margin: 0 auto 10px;
-}
-
 .slider-btns {
   background-color: transparent;
   font-size: 40px;
-  color: #8C8C8C;
+  color: #000000;
   -webkit-transition: 150ms;
   transition: 150ms;
-  opacity: 50%;
 }
 
 .slider-btns:hover {
-  opacity: 1;
   color: #ff6b08;
 }
 
 .btn-prev {
   position: absolute;
-  left: -30;
+  left: -20;
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -1281,7 +1272,7 @@ button {
 
 .btn-next {
   position: absolute;
-  right: -30;
+  right: -20;
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -1291,21 +1282,23 @@ body.light-theme {
   background-color: #fff;
 }
 
-.light-on {
-  background-color: #14d040;
-}
-
-.dark-on {
-  background-color: #883e1b;
-  color: #fff;
-}
-
 body.dark-theme {
+  background-color: #a76868;
+  color: #fff;
+  border-color: #333;
+  background-size: cover;
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.56)), to(rgba(0, 0, 0, 0.56))), url("../images/home-pc-x2.jpg");
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url("../images/home-pc-x2.jpg");
+}
+
+main.light-theme {
+  background-color: #fff;
+}
+
+main.dark-theme {
+  background-color: #a76868;
   color: #fff;
-  background-size: cover;
-  width: 100%;
+  border-color: #333;
 }
 
 /* The switch - the box around the slider */
@@ -1805,5 +1798,53 @@ input:checked + .slider:before {
 
 .footer-modal__social-link--svg:hover, .footer-modal__social-link--svg:focus {
   fill: #ff6b08;
+}
+
+.feedback-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-width: 480px;
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+.feedback-form label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 16px;
+  /* border-radius: 4px; */
+}
+
+.form-input {
+  border-radius: 4px;
+  border-color: black;
+  border-width: 1px;
+}
+
+.feedback-form button {
+  margin-top: 16px;
+  padding: 8px 12px;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 4px;
+  border-color: black;
+  border-width: 1px;
+}
+
+input {
+  padding: 8px;
+  font: inherit;
 }
 /*# sourceMappingURL=index.css.map */

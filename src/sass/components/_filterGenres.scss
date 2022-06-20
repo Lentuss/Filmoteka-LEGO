@@ -1,0 +1,96 @@
+ .filters{
+    @include centered;
+    margin: 0 auto;
+    font-family: 'Roboto';
+    @include respond-to(mobile) {
+        flex-wrap: wrap;
+    }
+}
+
+.filter{
+    cursor: pointer;
+    position: relative;
+    margin-right: 15px;
+    background-color:rgba($color: $footer-text-color, $alpha: 0.8);
+        &:hover .filter--title::after{
+        width: 100%;
+        left: 0;
+        opacity: 1;
+        }
+        &:hover .filter--list{
+            left: 0;
+        }
+        @include respond-to(mobile-only) {
+            &:not(:last-child) {
+                margin-bottom: 20px;
+            }
+        } 
+}
+
+.filter--title {
+    position: relative;
+    color: $header-text-color;
+    width: 112px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: inherit;
+    transition: color .25s cubic-bezier(.4, 0, .2, 1);
+
+    &::after {
+        position: absolute;    
+        height: 3px;
+        background-color: $accent-color;
+        content: '';
+        transition: width 0.3s ease;
+        top: 25px;
+        border-radius: 2px;
+        opacity: 0;
+     }
+    &::before,
+    &::after {
+        pointer-events: none;
+    }
+}
+
+.filter--title:hover,
+.filter--title:active {
+    color: $second-accent-color;
+
+}
+.filter--list{
+    position: absolute;
+    z-index: 4;
+    width: 112px;
+    background-color: $footer-text-color;
+    text-align: center;
+    color: $header-text-color;
+
+    height: 110px;
+    overflow: hidden;
+    overflow-y: scroll;
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: $accent-color;
+            border-radius: 9em;
+            width: 20px;
+            height: 20px;
+         }
+
+        &:hover .filter--title::after {
+            width: 100%;
+            transition: transform 0.6s;
+        }      
+}
+.filter--item__genre{
+    margin-top: 3px;
+}
+.filter--item__year{
+    margin-top: 3px;
+}
+
+.filter-item__color{
+  background-color: $accent-color;
+}

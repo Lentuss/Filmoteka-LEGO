@@ -237,40 +237,18 @@ margin-top: 20px;
 
 .header-logo__icon:hover
 {
-  animation: 1500ms ease 0s normal none 1 running pulse;
+  animation: rotate 4s linear ;
 }
-@keyframes pulse {
+@keyframes rotate {
   0% {
-      transform: scaleX(1) scaleY(1);
-  }
-  10% {
-      transform: scaleX(0.85) scaleY(0.85);
-  }
-  20% {
-      transform: scaleX(1) scaleY(1);
-  }
-  30% {
-      transform: scaleX(0.85) scaleY(0.85);
+    transform: rotate(0deg)
   }
   40% {
-      transform: scaleX(1) scaleY(1);
-  }
-  50% {
-      transform: scaleX(0.85) scaleY(0.85);
+    transform: rotate(90deg)
   }
   60% {
-      transform: scaleX(1) scaleY(1);
-  }
-  70% {
-      transform: scaleX(0.85) scaleY(0.85);
-  }
-  80% {
-      transform: scaleX(1) scaleY(1);
-  }
-  90% {
-      transform: scaleX(0.85) scaleY(0.85);
+    transform: rotate(270deg)
   }
   100% {
-      transform: scaleX(1) scaleY(1);
-  }
-  }
+    transform: rotate(360deg)
+  }}

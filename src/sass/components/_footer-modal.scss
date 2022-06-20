@@ -147,8 +147,6 @@
     
 
     &__item--img {
-        margin-bottom: 7px;
-        // z-index: 5;
         width: 100%;
         min-height: 100%;
         transition: 1s;
@@ -249,18 +247,15 @@
    
     &__social-links {
         @include centered;
-        margin-bottom: 15px;
         position: absolute;
         width: 100%;
 
         @include respond-to(mobile-only) {
                 top: 160px;
-                right: 0;
             }
         
         @include respond-to (tablet) {
             top: 117px;
-            left: 6px;
             }
     }
 
@@ -271,19 +266,22 @@
             
         width: 40px;
         height: 40px;
+       
     }
 
     &__social-link--svg {
     fill: #fff;
         width: 40px;
         height: 40px;
-        @include centered;
+        // @include centered;
+       
     }
 
     &__social-link--svg.linkedin{
         width: 43px;
         height: 43px;
         border-radius: 50%;
+      
     }
 
     &__social-link--svg:hover,

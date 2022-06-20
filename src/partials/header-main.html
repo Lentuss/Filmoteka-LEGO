@@ -39,10 +39,12 @@
         </form>
 
 <!-- color theme switcher -->
-        <label class="switch">
+   
+        <label class="switch ">
             <input type="checkbox" name="color" id="themeSwitcher">
             <span class="slider"></span>
         </label>
+  
 
 <!-- Sort buttons -->
 <label for="select" class="header__label-select">
@@ -61,9 +63,26 @@
     </div>
 
     <!-- Language buttons -->
-    <div class="lang df">
-        <button value="en" class="active" id="lang-en">EN</button>
-        <button value="uk" id="lang-uk">UK</button>
+    <!-- <select class="change-lang">
+        <option value="ua">UA</option>
+        <option value="ru" selected>RU</option>
+        <option value="en">EN</option>
+    </select> -->
+
+
+<!-- Filter buttons -->
+    <div class="filters">
+        <div class="filter filter__ganres ">
+            <p class="filter--title filter--title__genres">GENRES</p>
+            <ul class="filter--list filter--list__genres is-hidden"></ul>
+        </div>
+        <div class="filter filter__years">
+            <p class="filter--title filter--title__years ">YEARS</p>
+            <ul class="filter--list filter--list__years is-hidden"></ul>
+        </div>
+        <div class="filter filter-button">
+            <p class="filter--title filter--title__clear">CLEAR</p>
+        </div>
       </div>
 
 </header>

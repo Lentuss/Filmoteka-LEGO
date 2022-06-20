@@ -1,1 +1,419 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Filmoteka</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/Filmoteka-LEGO/sass.103227dc.css"><link rel="icon" type="image/png" sizes="32x32" href="/Filmoteka-LEGO/favicon-32x32.465a3bc6.png"><link rel="stylesheet" href="/Filmoteka-LEGO/src.103227dc.css"></head><body>  <header class="header-section header-section__list"> <h2 class="visually-hidden">Movies</h2> <div class="borders header-container"> <nav class="header-section__navigation"> <a href="/Filmoteka-LEGO/index.html"> <div class="header-logo"> <svg class="header-logo__icon" width="25" height="25"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#film"></use> </svg> <p class="header-logo__label">Filmoteka</p> </div> </a> <ul class="header-btns"> <li class="header-btns__item"><button type="button" data-action="header-home-button" class="header-btns__label is-current">Home</button> </li> <li class="header-btns__item"><button type="button" data-action="header-library-button" class="header-btns__label">Log In</button></li> </ul> </nav> <form class="header-form" id="search-form"> <input class="header-form__input" type="text" autocomplete="off" placeholder="Пошук фільмів" id="input-form" name="searchQuery"> <button type="submit" data-action="search-button" class="header-form__search"> <svg width="12" height="12"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#search"></use> </svg> </button> </form> <label class="switch"> <input type="checkbox" name="color" id="themeSwitcher"> <span class="slider"></span> </label> <label for="select" class="header__label-select"> Select by: <select name="select" id="select" class="header__select"> <option value="abc">ABC</option> <option value="year">Year</option> <option value="rating">Rating</option> </select> </label> <p class="search-error visually-hidden"> Search result not successful. Enter the correct movie name. </p> </div> <div class="df lang"> <button value="en" class="active" id="lang-en">EN</button> <button value="uk" id="lang-uk">UK</button> </div> </header> <div class="loader"></div>  <main> <section id="section-switch" class="section"> <div class="container"> <h1 class="visually-hidden">The best filmoteka ever</h1> <ul class="main__button-list"> <li class="main__button-item"> <button class="main__button trends-of-day">Daily Trends</button> </li> <li class="main__button-item"> <button class="main__button trends-of-week">Weekly Trends</button> </li> </ul> <ul class="main__movie-card-list"></ul> </div> </section> </main> <button class="upBtn"> <svg class="upBtn__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"> <path d="M54.63 246.6L192 109.3l137.4 137.4C335.6 252.9 343.8 256 352 256s16.38-3.125 22.62-9.375c12.5-12.5 12.5-32.75 0-45.25l-160-160c-12.5-12.5-32.75-12.5-45.25 0l-160 160c-12.5 12.5-12.5 32.75 0 45.25S42.13 259.1 54.63 246.6zM214.6 233.4c-12.5-12.5-32.75-12.5-45.25 0l-160 160c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0L192 301.3l137.4 137.4C335.6 444.9 343.8 448 352 448s16.38-3.125 22.62-9.375c12.5-12.5 12.5-32.75 0-45.25L214.6 233.4z"></path> </svg> </button> <section class="details isHidden"> <div class="details__backdrop"> <div class="details__modal"> <button class="details__close-button" type="button"> <svg width="14px" height="14px"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#footer-modal-close"></use> </svg> </button> <div class="details__box"> <div class="details__info"> <div class="details__buttonSet"> <button class="addToWatchedBtn-JS details__button details__button-accent" type="button" data-action="details-watched-btn">add to watched</button> <button class="details__button isHidden removeFromWatchedBtn-JS" type="button" data-action="details-del-watched-btn">remove from watched</button> <button class="addToQueueBtn-JS details__button" type="button" data-action="details-queue-btn">add to queue</button> <button class="details__button isHidden removeFromQueueBtn-JS" type="button" data-action="details-del-queue-btn">remove from queue</button> </div> </div> </div> </div> </div> </section> <div class="backdrop backdrop--is-hidden" data-backdrop=""> <div class="modal"> <div id="logInDiv"> <form class="logInForm" autocomplete="on" validate="" id="login-form"> <div class="form-container"> <label> Email <input type="email" class="inputStyle" name="email" id="input-email"> </label> <label> Password <input type="password" class="inputStyle" name="password" id="input-password"> </label> </div> <button type="submit" data-action="logIn-submit-btn" class="loginSubmitBtn"> Log In </button> </form> </div> <div class="--is-hidden" id="signUpDiv"> <form class="logInForm" autocomplete="on" validate="" id="signup-form"> <div class="form-container"> <label> Email <input type="email" class="inputStyle" name="email" id="signup-input-email"> </label> <label> Password <input type="password" class="inputStyle" name="password" id="signup-input-password"> </label> <label> Confirm password <input type="password" class="inputStyle" name="password-confirmation" id="passwordConfirm"> </label> </div> <button type="submit" data-action="signup-submit-btn" class="loginSubmitBtn"> Sign Up </button> </form> </div> <button class="modal__closeBtn" data-modal-close=""> <svg width="11" height="11"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#closeBtnLoginWindow"></use> </svg> </button> <div> <button type="button" class="btnStyle logInBtn-JS">Log In Window</button> <button type="button" class="btnStyle signUpBtn-JS"> Sign Up Window </button> <button type="button" class="btnStyle logOutBtn-JS">Logout</button> <button type="button" class="btnStyle watchedBtn-JS"> add to watched </button> <button type="button" class="btnStyle queueBtn-JS">add to queue</button> </div> </div> </div> <footer class="footer"> <div class="footer__section"> <p>&#169 2022 | All Rights Reserved |</p> <div class="footer__section--flex"> <p class="footer__section--text">Developed with by</p> <span> <svg class="footer__section--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#heart"></use> </svg> </span> <button class="footer__section--link" data-modal-footer-open="">GoIT Students</button> </div> </div> </footer> <div class="footer-backdrop is-hidden"> <div class="footer-modal"> <div class="footer-modal__container"> <h2 class="footer-modal__title">PROJECT_GROUP_5</h2> <button class="footer-modal__close" data-modal-footer-close=""> <svg class="footer-modal__close--svg" width="18px" height="18px"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#footer-modal-close"></use> </svg> </button> <div class="footer-modal__list"> <div class="footer-modal__item"> <div class="footer-modal__item--container"> <img class="footer-modal__item--img" src="/Filmoteka-LEGO/photo_1.8f9a2e59.jpg" alt=""> <div class="footer-modal__description"> <h3>OLENA POHYBIL</h3> <p>Team Lead</p> <div class="footer-modal__social-links"> <a class="footer-modal__social-link" href="https://github.com/Lentuss"> <svg class="footer-modal__social-link--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#github"></use> </svg> </a> <a class="footer-modal__social-link" href="https://www.linkedin.com/in/olena-pohybil-4725b7220/"> <svg class="footer-modal__social-link--svg linkedin"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#linkedin"></use> </svg> </a> </div> </div> </div> </div> <div class="footer-modal__item"> <div class="footer-modal__item--container"> <img class="footer-modal__item--img" src="/Filmoteka-LEGO/photo_2.d13bf434.jpg" alt=""> <div class="footer-modal__description"> <h3>ANASTASIIA ZHYLTSOVA</h3> <p>Scrum Master</p> <div class="footer-modal__social-links"> <a class="footer-modal__social-link" href="https://github.com/AnastasiiaZhyltsova"> <svg class="footer-modal__social-link--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#github"></use> </svg> </a> <a class="footer-modal__social-link" href="https://www.linkedin.com/in/anastasiia-zhyltsova/"> <svg class="footer-modal__social-link--svg linkedin"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#linkedin"></use> </svg> </a> </div> </div> </div> </div> <div class="footer-modal__item"> <div class="footer-modal__item--container"> <img class="footer-modal__item--img" src="/Filmoteka-LEGO/photo_3.50c45308.jpg" alt=""> <div class="footer-modal__description"> <h3>OLEKSANDR PAVLISHCHEV</h3> <p>Frond End Developer</p> <div class="footer-modal__social-links"> <a class="footer-modal__social-link" href="https://github.com/velogitara/"> <svg class="footer-modal__social-link--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#github"></use> </svg> </a> <a class="footer-modal__social-link" href="https://www.linkedin.com/in/alex-pavlishchev-54a7bb241/"> <svg class="footer-modal__social-link--svg linkedin"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#linkedin"></use> </svg> </a> </div> </div> </div> </div> <div class="footer-modal__item"> <div class="footer-modal__item--container"> <img class="footer-modal__item--img" src="/Filmoteka-LEGO/photo_4.11fd582b.jpg" alt=""> <div class="footer-modal__description"> <p>Frond End Developer</p> <h3>ANASTASIIA TARASIUK</h3> <div class="footer-modal__social-links"> <a class="footer-modal__social-link" href="https://github.com/Anastasiia-Tarasiuk"> <svg class="footer-modal__social-link--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#github"></use> </svg> </a> <a class="footer-modal__social-link" href="https://www.linkedin.com/in/anastasiia-tarasiuk-a20a96240"> <svg class="footer-modal__social-link--svg linkedin"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#linkedin"></use> </svg> </a> </div> </div> </div> </div> <div class="footer-modal__item"> <div class="footer-modal__item--container"> <img class="footer-modal__item--img" src="/Filmoteka-LEGO/photo_5.2e0ae6f5.jpg" alt=""> <div class="footer-modal__description"> <p>Frond End Developer</p> <h3>ANDRII BEHA</h3> <div class="footer-modal__social-links"> <a class="footer-modal__social-link" href="https://github.com/andriibeha"> <svg class="footer-modal__social-link--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#github"></use> </svg> </a> <a class="footer-modal__social-link" href="https://www.linkedin.com/in/andrii-beha-24468b22a"> <svg class="footer-modal__social-link--svg linkedin"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#linkedin"></use> </svg> </a> </div> </div> </div> </div> <div class="footer-modal__item"> <div class="footer-modal__item--container"> <img class="footer-modal__item--img" src="/Filmoteka-LEGO/photo_6.c8a26358.jpg" alt=""> <div class="footer-modal__description"> <h3>ROMAN PYRYN</h3> <p>Frond End Developer</p> <div class="footer-modal__social-links"> <a class="footer-modal__social-link" href="https://github.com/RomanPyryn"> <svg class="footer-modal__social-link--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#github"></use> </svg> </a> <a class="footer-modal__social-link" href="https://www.linkedin.com/in/roman-pyryn-895812239/"> <svg class="footer-modal__social-link--svg linkedin"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#linkedin"></use> </svg> </a> </div> </div> </div> </div> <div class="footer-modal__item"> <div class="footer-modal__item--container"> <img class="footer-modal__item--img" src="/Filmoteka-LEGO/photo_7.96eef70e.jpg" alt=""> <div class="footer-modal__description"> <h3>NATALIA STEBEL</h3> <p>Frond End Developer</p> <div class="footer-modal__social-links"> <a class="footer-modal__social-link" href="https://github.com/natalia-stebel"> <svg class="footer-modal__social-link--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#github"></use> </svg> </a> <a class="footer-modal__social-link" href="#"> <svg class="footer-modal__social-link--svg linkedin"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#linkedin"></use> </svg> </a> </div> </div> </div> </div> <div class="footer-modal__item"> <div class="footer-modal__item--container"> <img class="footer-modal__item--img" src="/Filmoteka-LEGO/photo_8.8cf08c3d.jpg" alt=""> <div class="footer-modal__description"> <h3>DANYLO FATEEV</h3> <p>Frond End Developer</p> <div class="footer-modal__social-links"> <a class="footer-modal__social-link" href="https://github.com/Danila-Fateev"> <svg class="footer-modal__social-link--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#github"></use> </svg> </a> <a class="footer-modal__social-link" href="#"> <svg class="footer-modal__social-link--svg linkedin"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#linkedin"></use> </svg> </a> </div> </div> </div> </div> <div class="footer-modal__item"> <div class="footer-modal__item--container"> <img class="footer-modal__item--img" src="#" alt=""> <div class="footer-modal__description"> <h3>VASIL MASLOV</h3> <p>Frond End Developer</p> <div class="footer-modal__social-links"> <a class="footer-modal__social-link" href="https://github.com/maslovvasil"> <svg class="footer-modal__social-link--svg"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#github"></use> </svg> </a> <a class="footer-modal__social-link" href="#"> <svg class="footer-modal__social-link--svg linkedin"> <use href="/Filmoteka-LEGO/sprite.5dc82738.svg#linkedin"></use> </svg> </a> </div> </div> </div> </div> </div> </div> </div></div>  <script src="/Filmoteka-LEGO/src.0db8a444.js"></script> </body></html>
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filmoteka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/sass.0a7c4b30.css">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.a89af6ed.png">
+<script src="/sass.0a7c4b30.js"></script><link rel="stylesheet" href="/src.e31bb0bc.css"></head>
+
+<body>
+  <!-- ❗️❗️❗️ Add partials like so for every page -->
+
+  <header class="header-section header-section__list">
+
+    <h2 class="visually-hidden">Movies</h2>
+
+    <div class="borders header-container">
+
+        <nav class="header-section__navigation">
+            <a href="/index.html">
+                <div class="header-logo">
+                    <svg class="header-logo__icon" width="25" height="25">
+                        <use href="/sprite.5ec50489.svg#film"></use>
+                    </svg>
+                    <p class="header-logo__label">Filmoteka</p>
+                </div>
+            </a>
+
+            <ul class="header-btns">
+                <li class="header-btns__item"><button type="button" data-action="header-home-button" class="header-btns__label is-current">Home</button> </li>
+                <li class="header-btns__item"><button type="button" data-action="header-library-button" class="header-btns__label">Log In</button></li>
+            </ul>
+        </nav>
+
+        <form class="header-form" id="search-form">
+            <input class="header-form__input" type="text" autocomplete="off" placeholder="Пошук фільмів" id="input-form" name="searchQuery">
+
+
+            <button type="submit" data-action="search-button" class="header-form__search">
+                <svg width="12" height="12">
+                    <use href="/sprite.5ec50489.svg#search"></use>
+                </svg>
+            </button>
+        </form>
+
+<!-- color theme switcher -->
+        <label class="switch">
+            <input type="checkbox" name="color" id="themeSwitcher">
+            <span class="slider"></span>
+        </label>
+
+<!-- Sort buttons -->
+<label for="select" class="header__label-select">
+    Select by:
+    <select name="select" id="select" class="header__select">
+        <option value="abc">ABC</option>
+        <option value="year">Year</option>
+        <option value="rating">Rating</option>
+    </select>
+</label>
+
+<!-- Error-message -->
+        <p class="search-error visually-hidden">
+            Search result not successful. Enter the correct movie name.
+        </p>
+    </div>
+
+    <!-- Language buttons -->
+    <div class="lang df">
+        <button value="en" class="active" id="lang-en">EN</button>
+        <button value="uk" id="lang-uk">UK</button>
+      </div>
+
+</header>
+  <div class="loader"></div>
+  <!-- <include src="./partials/slider.html"></include> -->
+
+  <main>
+  <section id="section-switch" class="section">
+    <div class="container">
+      <h1 class="visually-hidden">The best filmoteka ever</h1>
+      <ul class="main__button-list">
+        <li class="main__button-item">
+          <button class="main__button trends-of-day">Daily Trends</button>
+        </li>
+        <li class="main__button-item">
+          <button class="main__button trends-of-week">Weekly Trends</button>
+        </li>
+      </ul>
+      <ul class="main__movie-card-list"></ul>
+    </div>
+  </section>
+</main>
+  <button class="upBtn">
+    <svg class="upBtn__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+        <path d="M54.63 246.6L192 109.3l137.4 137.4C335.6 252.9 343.8 256 352 256s16.38-3.125 22.62-9.375c12.5-12.5 12.5-32.75 0-45.25l-160-160c-12.5-12.5-32.75-12.5-45.25 0l-160 160c-12.5 12.5-12.5 32.75 0 45.25S42.13 259.1 54.63 246.6zM214.6 233.4c-12.5-12.5-32.75-12.5-45.25 0l-160 160c-12.5 12.5-12.5 32.75 0 45.25s32.75 12.5 45.25 0L192 301.3l137.4 137.4C335.6 444.9 343.8 448 352 448s16.38-3.125 22.62-9.375c12.5-12.5 12.5-32.75 0-45.25L214.6 233.4z"></path>
+    </svg>
+</button>
+  <section class="details isHidden">
+    <div class="details__backdrop">
+        <div class="details__modal">
+            <button class="details__close-button" type="button">
+                <svg width="14px" height="14px">
+                    <use href="/sprite.44983e72.svg#footer-modal-close"></use>
+                </svg>
+            </button>
+            <div class="details__box">
+                <div class="details__info">
+                    <div class="details__buttonSet">
+                        <button class="details__button addToWatchedBtn-JS details__button-accent" type="button" data-action="details-watched-btn">add to
+                            watched</button>
+                        <button class="details__button removeFromWatchedBtn-JS isHidden" type="button" data-action="details-del-watched-btn">remove from
+                            watched</button>
+                        <button class="details__button addToQueueBtn-JS" type="button" data-action="details-queue-btn">add to
+                            queue</button>
+                        <button class="details__button removeFromQueueBtn-JS isHidden" type="button" data-action="details-del-queue-btn">remove from
+                            queue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  <div class="backdrop backdrop--is-hidden" data-backdrop="">
+  <div class="modal">
+    <div id="logInDiv">
+      <form class="logInForm" autocomplete="on" validate="" id="login-form">
+        <div class="form-container">
+          <label>
+            Email
+            <input type="email" class="inputStyle" name="email" id="input-email">
+          </label>
+
+          <label>
+            Password
+            <input type="password" class="inputStyle" name="password" id="input-password">
+          </label>
+        </div>
+
+        <button type="submit" data-action="logIn-submit-btn" class="loginSubmitBtn">
+          Log In
+        </button>
+      </form>
+    </div>
+    <!-- ==================  SIGN UP =============================== -->
+    <div class="--is-hidden" id="signUpDiv">
+      <form class="logInForm" autocomplete="on" validate="" id="signup-form">
+        <div class="form-container">
+          <label>
+            Email
+            <input type="email" class="inputStyle" name="email" id="signup-input-email">
+          </label>
+
+          <label>
+            Password
+            <input type="password" class="inputStyle" name="password" id="signup-input-password">
+          </label>
+
+          <label>
+            Confirm password
+            <input type="password" class="inputStyle" name="password-confirmation" id="passwordConfirm">
+          </label>
+        </div>
+
+        <button type="submit" data-action="signup-submit-btn" class="loginSubmitBtn">
+          Sign Up
+        </button>
+      </form>
+    </div>
+
+    <button class="modal__closeBtn" data-modal-close="">
+      <svg width="11" height="11">
+        <use href="/sprite.5ec50489.svg#closeBtnLoginWindow"></use>
+      </svg>
+    </button>
+    <div>
+      <button type="button" class="logInBtn-JS btnStyle">Log In Window</button>
+      <button type="button" class="signUpBtn-JS btnStyle">
+        Sign Up Window
+      </button>
+      <button type="button" class="logOutBtn-JS btnStyle">Logout</button>
+      <button type="button" class="watchedBtn-JS btnStyle">
+        add to watched
+      </button>
+      <button type="button" class="queueBtn-JS btnStyle">add to queue</button>
+    </div>
+  </div>
+</div>
+
+
+  <footer class="footer">
+    <div class="footer__section">
+        <p>&#169 2022 | All Rights Reserved |</p>
+        <div class="footer__section--flex">
+            <p class="footer__section--text">Developed with by</p>
+            <span>
+                <svg class="footer__section--svg">
+                    <use href="/sprite.44983e72.svg#heart"></use>
+                </svg>
+            </span>
+            <button class="footer__section--link" data-modal-footer-open="">GoIT Students</button>
+        </div>
+    </div>
+</footer>
+
+  <div class="footer-backdrop is-hidden">
+    <div class="footer-modal">
+        <div class="footer-modal__container">
+            <h2 class="footer-modal__title">PROJECT_GROUP_5</h2>
+            <button class="footer-modal__close" data-modal-footer-close="">
+                <svg class="footer-modal__close--svg" width="18px" height="18px">
+                    <use href="/sprite.44983e72.svg#footer-modal-close"></use>
+                </svg>
+            </button>
+            <div class="footer-modal__list">
+                <div class="footer-modal__item">
+                    <div class="footer-modal__item--container">
+                        <img class="footer-modal__item--img" src="/photo_1.94b0b9fd.jpg" alt="">
+                        <div class="footer-modal__description">
+                            <h3>OLENA POHYBIL</h3>
+                            <p>Team Lead</p>
+                            <div class="footer-modal__social-links">
+                                <a class="footer-modal__social-link" href="https://github.com/Lentuss">
+                                    <svg class="footer-modal__social-link--svg">
+                                        <use href="/sprite.44983e72.svg#github"></use>
+                                    </svg>
+                                </a>
+                                <a class="footer-modal__social-link" href="https://www.linkedin.com/in/olena-pohybil-4725b7220/">
+                                    <svg class="footer-modal__social-link--svg linkedin">
+                                        <use href="/sprite.44983e72.svg#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal__item">
+                    <div class="footer-modal__item--container">
+                        <img class="footer-modal__item--img" src="/photo_2.82c160fc.jpg" alt="">
+                        <div class="footer-modal__description">
+                            <h3>ANASTASIIA ZHYLTSOVA</h3>
+                            <p>Scrum Master</p>
+                            <div class="footer-modal__social-links">
+                                <a class="footer-modal__social-link" href="https://github.com/AnastasiiaZhyltsova">
+                                    <svg class="footer-modal__social-link--svg">
+                                        <use href="/sprite.44983e72.svg#github"></use>
+                                    </svg>
+                                </a>
+                                <a class="footer-modal__social-link" href="https://www.linkedin.com/in/anastasiia-zhyltsova/">
+                                    <svg class="footer-modal__social-link--svg linkedin">
+                                        <use href="/sprite.44983e72.svg#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal__item">
+                    <div class="footer-modal__item--container">
+                        <img class="footer-modal__item--img" src="/photo_3.be01a59c.jpg" alt="">
+                        <div class="footer-modal__description">
+                            <h3>OLEKSANDR PAVLISHCHEV</h3>
+                            <p>Frond End Developer</p>
+                            <div class="footer-modal__social-links">
+                                <a class="footer-modal__social-link" href="https://github.com/velogitara/">
+                                    <svg class="footer-modal__social-link--svg">
+                                        <use href="/sprite.44983e72.svg#github"></use>
+                                    </svg>
+                                </a>
+                                <a class="footer-modal__social-link" href="https://www.linkedin.com/in/alex-pavlishchev-54a7bb241/">
+                                    <svg class="footer-modal__social-link--svg linkedin">
+                                        <use href="/sprite.44983e72.svg#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal__item">
+                    <div class="footer-modal__item--container">
+                        <img class="footer-modal__item--img" src="/photo_4.8b8d3d05.jpg" alt="">
+                        <div class="footer-modal__description">
+                            <p>Frond End Developer</p>
+                            <h3>ANASTASIIA TARASIUK</h3>
+                            <div class="footer-modal__social-links">
+                                <a class="footer-modal__social-link" href="https://github.com/Anastasiia-Tarasiuk">
+                                    <svg class="footer-modal__social-link--svg">
+                                        <use href="/sprite.44983e72.svg#github"></use>
+                                    </svg>
+                                </a>
+                                <a class="footer-modal__social-link" href="https://www.linkedin.com/in/anastasiia-tarasiuk-a20a96240">
+                                    <svg class="footer-modal__social-link--svg linkedin">
+                                        <use href="/sprite.44983e72.svg#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal__item">
+                    <div class="footer-modal__item--container">
+                        <img class="footer-modal__item--img" src="/photo_5.fb9d9108.jpg" alt="">
+                        <div class="footer-modal__description">
+                            <p>Frond End Developer</p>
+                            <h3>ANDRII BEHA</h3>
+                            <div class="footer-modal__social-links">
+                                <a class="footer-modal__social-link" href="https://github.com/andriibeha">
+                                    <svg class="footer-modal__social-link--svg">
+                                        <use href="/sprite.44983e72.svg#github"></use>
+                                    </svg>
+                                </a>
+                                <a class="footer-modal__social-link" href="https://www.linkedin.com/in/andrii-beha-24468b22a">
+                                    <svg class="footer-modal__social-link--svg linkedin">
+                                        <use href="/sprite.44983e72.svg#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal__item">
+                    <div class="footer-modal__item--container">
+                        <img class="footer-modal__item--img" src="/photo_6.204e958e.jpg" alt="">
+                        <div class="footer-modal__description">
+                            <h3>ROMAN PYRYN</h3>
+                            <p>Frond End Developer</p>
+                            <div class="footer-modal__social-links">
+                                <a class="footer-modal__social-link" href="https://github.com/RomanPyryn">
+                                    <svg class="footer-modal__social-link--svg">
+                                        <use href="/sprite.44983e72.svg#github"></use>
+                                    </svg>
+                                </a>
+                                <a class="footer-modal__social-link" href="https://www.linkedin.com/in/roman-pyryn-895812239/">
+                                    <svg class="footer-modal__social-link--svg linkedin">
+                                        <use href="/sprite.44983e72.svg#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal__item">
+                    <div class="footer-modal__item--container">
+                        <img class="footer-modal__item--img" src="/photo_7.34238785.jpg" alt="">
+                        <div class="footer-modal__description">
+                            <h3>NATALIA STEBEL</h3>
+                            <p>Frond End Developer</p>
+                            <div class="footer-modal__social-links">
+                                <a class="footer-modal__social-link" href="https://github.com/natalia-stebel">
+                                    <svg class="footer-modal__social-link--svg">
+                                        <use href="/sprite.44983e72.svg#github"></use>
+                                    </svg>
+                                </a>
+                                <a class="footer-modal__social-link" href="#">
+                                    <svg class="footer-modal__social-link--svg linkedin">
+                                        <use href="/sprite.44983e72.svg#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal__item">
+                    <div class="footer-modal__item--container">
+                        <img class="footer-modal__item--img" src="/photo_8.4ebd3aa9.jpg" alt="">
+                        <div class="footer-modal__description">
+                            <h3>DANYLO FATEEV</h3>
+                            <p>Frond End Developer</p>
+                            <div class="footer-modal__social-links">
+                                <a class="footer-modal__social-link" href="https://github.com/Danila-Fateev">
+                                    <svg class="footer-modal__social-link--svg">
+                                        <use href="/sprite.44983e72.svg#github"></use>
+                                    </svg>
+                                </a>
+                                <a class="footer-modal__social-link" href="#">
+                                    <svg class="footer-modal__social-link--svg linkedin">
+                                        <use href="/sprite.44983e72.svg#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal__item">
+                    <div class="footer-modal__item--container">
+                        <img class="footer-modal__item--img" src="#" alt="">
+                        <div class="footer-modal__description">
+                            <h3>VASIL MASLOV</h3>
+                            <p>Frond End Developer</p>
+                            <div class="footer-modal__social-links">
+                                <a class="footer-modal__social-link" href="https://github.com/maslovvasil">
+                                    <svg class="footer-modal__social-link--svg">
+                                        <use href="/sprite.44983e72.svg#github"></use>
+                                    </svg>
+                                </a>
+                                <a class="footer-modal__social-link" href="#">
+                                    <svg class="footer-modal__social-link--svg linkedin">
+                                        <use href="/sprite.44983e72.svg#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div></div>
+  <!-- <include src="./partials/describe-window.html"></include> -->
+
+  <script src="/src.e31bb0bc.js"></script>
+</body>
+
+</html>

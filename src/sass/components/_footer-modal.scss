@@ -1,4 +1,6 @@
 .footer-backdrop {
+    display: flex;
+    justify-content: center;
     position: fixed;
     left: 0px;
     top: 0px;
@@ -16,28 +18,21 @@
 }
 
 .footer-modal {
+    position: absolute;
+    width: 90%;
     min-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 10px;
-
-    &__container {
-        position: relative;
-        width: 320px;
-        // background-color: rgba(54, 54, 54, 0.8);
-        // background: rgba(66, 66, 66, 0.7);    
-        padding: 30px;
-
-        @include respond-to (tablet) {
+    display: block;
+    top: 20px;
+    width: 320px;
+    padding: 30px;
+         @include respond-to (tablet) {
             width: 720px;
-            padding: 50px;
+            padding: 20px 50px;
         }
 
         @include respond-to (desktop) {
             width: 900px;
         }
-    }
 
     &__close {
         position: absolute;
@@ -51,6 +46,9 @@
 
         background-color: transparent;
         border: none;
+        @include respond-to (desktop) {
+                right: 100px;
+            }
     }
 
     &__close--svg {
@@ -91,24 +89,18 @@
         @include respond-to(mobile-only){
             width: 250px;
             height: 250px;
-        }
-
-        @include respond-to (tablet) {
-                width: 185px;
-                height: 185px;
-            }
-        
-        @include respond-to (tablet-only){
             &:not(:last-child) {
                 margin-bottom: 20px;
             }
         }
 
-        @include respond-to (desktop) {
+        @include respond-to (tablet) {
+            width: 185px;
+            height: 185px;
             &:nth-child(-n+6) {
                 margin-bottom: 20px;
             }
-        }
+         }  
     }
        
     &__item--container{

@@ -20,7 +20,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  child,
 } from 'firebase/auth';
 import {
   getDatabase,
@@ -49,7 +48,10 @@ const db = getDatabase(app);
 const auth = getAuth(app);
 
 const Refs = {
-  headLogInBtn: document.querySelector('[data-action="header-library-button"]'),
+  headLogInBtn: document.querySelector('[data-action="header-login-button"]'),
+  headLibraryBtn: document.querySelector(
+    '[data-action="header-library-button"]'
+  ),
   backdrop: document.querySelector('[data-backdrop]'),
   closeModalBtn: document.querySelector('[data-modal-close]'),
   signUpBtnWindow: document.querySelector('.signUpBtn-JS'),
@@ -82,7 +84,10 @@ function addToWatched(event) {
     '.removeFromWatchedBtn-JS'
   );
   const uid = auth.lastNotifiedUid;
-  if (uid) {
+
+  if (!event.target.classList.contains('addToWatchedBtn-JS')) {
+    return;
+  } else if (uid) {
     const movieID = event.target
       .closest('.details__box')
       .getAttribute('data-id');
@@ -97,20 +102,16 @@ function addToWatched(event) {
       .closest('.details__box')
       .getAttribute('data-date');
 
-    if (!event.target.classList.contains('addToWatchedBtn-JS')) {
-      return;
-    } else if (uid) {
-      addMovieInfoToDataBaseWatch(
-        movieID,
-        titleDetails,
-        imgPoster,
-        genres,
-        year,
-        uid
-      );
-      addBtn.classList.add('isHidden');
-      removeBtn.classList.remove('isHidden');
-    }
+    addMovieInfoToDataBaseWatch(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
   }
 }
 
@@ -133,7 +134,9 @@ function addToQueue(event) {
   const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
   const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
   const uid = auth.lastNotifiedUid;
-  if (uid) {
+  if (!event.target.classList.contains('addToQueueBtn-JS')) {
+    return;
+  } else if (uid) {
     const movieID = event.target
       .closest('.details__box')
       .getAttribute('data-id');
@@ -148,20 +151,16 @@ function addToQueue(event) {
       .closest('.details__box')
       .getAttribute('data-date');
 
-    if (!event.target.classList.contains('addToQueueBtn-JS')) {
-      return;
-    } else if (uid) {
-      addMovieInfoToDataBaseQueue(
-        movieID,
-        titleDetails,
-        imgPoster,
-        genres,
-        year,
-        uid
-      );
-      addBtn.classList.add('isHidden');
-      removeBtn.classList.remove('isHidden');
-    }
+    addMovieInfoToDataBaseQueue(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
   }
 }
 
@@ -191,6 +190,7 @@ onAuthStateChanged(auth, user => {
     Refs.signUpDiv.setAttribute('style', 'display:none');
     Refs.logOutBtn.classList.remove('--is-hidden');
     Refs.headLogInBtn.textContent = 'User Profile';
+    Refs.headLibraryBtn.classList.remove('--is-hidden');
 
     const uid = user.uid;
     console.log(`User ${uid} Is Logged In`);
@@ -210,6 +210,8 @@ onAuthStateChanged(auth, user => {
     Refs.logInDiv.setAttribute('style', 'display:flex');
     Refs.signUpDiv.setAttribute('style', 'display:flex');
     Refs.headLogInBtn.textContent = 'Log In';
+    Refs.headLibraryBtn.classList.add('--is-hidden');
+
     console.log('User Is Signed Out');
   }
 });

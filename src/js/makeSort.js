@@ -1,5 +1,6 @@
 import { BASE_URL, API_KEY } from "./apiVariables";
 import { createListMarkup } from './renderFilms';
+import { renderNewPage } from './getTrendFilms';
 
 let PAGE = 1;
 let SORT_BY = "";
@@ -9,6 +10,7 @@ const refs = {
     selectEl: document.querySelector('#select'),
     galleryEl: document.querySelector('.main__movie-card-list'),
     inputEl: document.querySelector('#input-form'),
+    filtersEl: document.querySelector('.filters'),
 };
 
 refs.selectEl.addEventListener('change', onSelectChange);
@@ -44,6 +46,7 @@ function getSortUrl(SORT_BY, PAGE) {
 function renderMovieList(movieList) { 
     const sortedMovieForRender = createListMarkup(movieList);
 
+    renderClearBtn();
     removeLoader();
 
     refs.galleryEl.insertAdjacentHTML('beforeend', sortedMovieForRender) ;
@@ -62,6 +65,27 @@ function addLoader() {
 function removeLoader() { 
     refs.loaderEl.style.display = "none";
 };
+
+//КНОПКА CLEAR 
+function renderClearBtn() {
+    let clearBtn = document.getElementById('clear');
+    if (clearBtn) {
+        return;
+    } else {
+       let clear = document.createElement('li');
+        clear.classList.add('filter', 'filter-button');
+        clear.id = 'clear';
+        clear.innerHTML = `<p class="filter--title filter--title__clear">CLEAR</p>` 
+        refs.filtersEl.append(clear);
+    }
+    clear.addEventListener('click', () => {onClearBtnClick()} );
+};
+
+function onClearBtnClick() { 
+    clear.remove();
+    renderNewPage();
+
+}
 
 // infinite scroll
 

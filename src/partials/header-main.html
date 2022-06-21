@@ -10,79 +10,95 @@
                     <svg class="header-logo__icon" width="25" height="25">
                         <use href="./images/sprite.svg#film" />
                     </svg>
-                    <p class="header-logo__label">Filmoteka</p>
+                    <p class="header-logo__label bounce">Filmoteka</p>
                 </div>
             </a>
 
             <ul class="header-btns">
                 <li class="header-btns__item"><button type="button" data-action="header-home-button"
                         class="header-btns__label is-current">Home</button> </li>
-                <li class="header-btns__item"><button type="button" data-action="header-library-button"
-                        class="header-btns__label">Log In</button></li>
+                <li class="header-btns__item">
+                    <button type="button" data-action="header-library-button" class="header-btns__label --is-hidden">
+                        My library
+                    </button>
+                </li>
+                <li class="header-btns__item">
+                    <button type="button" data-action="header-login-button" class="header-btns__label">
+                        Log In
+                    </button>
+                </li>
             </ul>
+
+
+
         </nav>
+        <!-- color theme switcher -->
+        <div class="switch-container">
+            <svg class="switch-icon" width="19" height="19">
+                <use href="./images/sprite.svg#icon-lamp-light-bulb-outline-svgrepo-com" />
+            </svg>
+            <label class="switch ">
 
-        <form class="header-form" id="search-form">
-            <input class="header-form__input" 
-            type="text" 
-            autocomplete="off" 
-            placeholder="Пошук фільмів" 
-            id="input-form" 
-            name="searchQuery"/>
-
-
-            <button type="submit" data-action="search-button" class="header-form__search">
-                <svg width="12" height="12">
-                    <use href="./images/sprite.svg#search" />
-                </svg>
-            </button>
-        </form>
-
-<!-- color theme switcher -->
-   
-        <label class="switch ">
-            <input type="checkbox" name="color" id="themeSwitcher">
-            <span class="slider"></span>
-        </label>
-  
-
-<!-- Sort buttons -->
-<label for="select" class="header__label-select">
-    Select by:
-    <select name="select" id="select" class="header__select">
-        <option value="abc">ABC</option>
-        <option value="year">Year</option>
-        <option value="rating">Rating</option>
-    </select>
-</label>
-
-<!-- Error-message -->
-        <p class="search-error visually-hidden">
-            Search result not successful. Enter the correct movie name.
-        </p>
-    </div>
-
-    <!-- Language buttons -->
-    <!-- <select class="change-lang">
-        <option value="ua">UA</option>
-        <option value="ru" selected>RU</option>
-        <option value="en">EN</option>
-    </select> -->
-
-
-<!-- Filter buttons -->
-    <div class="filters">
-        <div class="filter filter__ganres ">
-            <p class="filter--title filter--title__genres">GENRES</p>
-            <ul class="filter--list filter--list__genres is-hidden"></ul>
+                <input type="checkbox" name="color" id="themeSwitcher">
+                <span class="slider"></span>
+            </label>
         </div>
-        <div class="filter filter__years">
-            <p class="filter--title filter--title__years ">YEARS</p>
-            <ul class="filter--list filter--list__years is-hidden"></ul>
+
+        <div class="header-main">
+            <form class="header-form" id="search-form">
+                <input class="header-form__input" type="text" autocomplete="off" placeholder="Пошук фільмів"
+                    id="input-form" name="searchQuery" />
+
+
+                <button type="submit" data-action="search-button" class="header-form__search">
+                    <svg width="12" height="12">
+                        <use href="./images/sprite.svg#search" />
+                    </svg>
+                </button>
+            </form>
+
+            <!-- Error-message -->
+            <p class="search-error visually-hidden">
+                Search result not successful. Enter the correct movie name.
+            </p>
+
+            <!-- Sort buttons -->
+            <div class="filters">
+                <div class="filter filter__ganres ">
+                    <p class="filter--title filter--title__genres">GENRES &#9660</p>
+                    <ul class="filter--list filter--list__genres is-hidden"></ul>
+                </div>
+                <div class="filter filter__years">
+                    <p class="filter--title filter--title__years ">YEARS &#9660</p>
+                    <ul class="filter--list filter--list__years is-hidden"></ul>
+                </div>
+                <!-- Sort buttons -->
+                    <select name="select" id="select" class="filter header__select">
+                        <option class="filter--title">SORT BY &#9660</option>
+                        <option value="popularity.desc">Popularity Up</option>
+                        <option value="popularity.asc">Popularity Down</option>
+                        <option value="release_date.desc">Date Up</option>
+                        <option value="release_date.asc">Date Down</option>
+                        <option value="original_title.asc">Title (A-Z)</option>
+                        <option value="original_title.desc">Title (Z-A)</option>
+                    </select>
+                
+            </div>
         </div>
-        <div class="filter filter-button">
-            <p class="filter--title filter--title__clear">CLEAR</p>
+
+        <div class="header-main__library --is-hidden">
+            <ul class="header-library__list">
+                <li class="header-library__item">
+                    <button class="header-library__btn">
+                        WATCHED
+                    </button>
+                </li>
+                <li class="header-library__item">
+                    <button class="header-library__btn">
+                        QUEUE
+                    </button>
+                </li>
+            </ul>
         </div>
-      </div>
 
 </header>

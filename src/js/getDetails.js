@@ -25,20 +25,16 @@ const backdropDetails = document.querySelector('.details__backdrop');
 const modal = document.querySelector('.details__modal');
 const box = document.querySelector('.details__box');
 const detCloseBtn = document.querySelector('.details__close-button');
+const sliderItem = document.querySelector('.slider-item');
+const sliderTrack = document.querySelector('.slider-track');
 
-/// если нет деталей
-// если нет постера
-//если нет бекдропа
-//если нет ничего
-//очистка
 //on slider??
 ///проверки
-//стили жанров мобилки/таблетки
 //убрать клик с жанров
-//курсор поинтер
 
 const clickForDetails = e => {
   e.preventDefault();
+  windowAppear();
 
   const uid = auth.lastNotifiedUid;
   let watchedArr = [];
@@ -69,14 +65,6 @@ const clickForDetails = e => {
 
   clearInfo();
 
-  // setTimeout(() => {
-  detailsModal.classList.remove('isHidden');
-  backdropDetails.classList.add('isAppeared');
-  setTimeout(() => {
-    modal.classList.add('isAppeared');
-  }, 2500);
-  // }, 500);
-  // console.log(e.target);// начнем-с
   if (
     e.target.nodeName === 'UL'
     // ||
@@ -85,7 +73,8 @@ const clickForDetails = e => {
   ) {
     return;
   }
-  const movieId = e.target.closest('LI').dataset.movieid;
+
+  const movieId = e.target.closest('[data-movieId]').dataset.movieid;
 
   checkArr(watchedArr, movieId, 'Watched');
   checkArr(queueArr, movieId, 'Queue');
@@ -115,12 +104,24 @@ export async function getDetails(movieId) {
     release_date,
   } = details;
 
-  backdropDetails.style.backgroundImage = `url(${
-    BACKDROP_URL + backdrop_path
-  })`;
-  //дописать логику отсутствия
+  checkBackdrop(backdrop_path); //////переробити
 
-  const genreArr = genres.map(genre => genre.name);
+  function checkBackdrop(backdrop_path) {
+    const backdropImg = `url(${BACKDROP_URL + backdrop_path})`;
+    if (backdrop_path === null) {
+      backdropDetails.style.backgroundColor = 'rgba(0, 0, 0, 0.8';
+    } else {
+      backdropDetails.style.backgroundImage = backdropImg;
+    }
+  }
+
+  let posterPicture = `${IMAGE_URL + poster_path}`;
+  if (poster_path === null) {
+    posterPicture =
+      'https://www.csaff.org/wp-content/uploads/csaff-no-poster.jpg';
+  }
+
+  const allGenres = genres.map(genre => genre.name).join(', ');
 
   box.setAttribute('data-id', `${id}`);
   box.setAttribute('data-date', `${release_date.slice(0, 4)}`);
@@ -129,7 +130,7 @@ export async function getDetails(movieId) {
 
   const markupImg = `<div class="details__poster">
                     <img class="details__image"
-                        src="${IMAGE_URL + poster_path}" alt="${title}poster"
+                        src="${posterPicture}" alt="${title}poster"
                         width="375px" />
                 </div>`;
 
@@ -159,7 +160,7 @@ export async function getDetails(movieId) {
                         <li>
                             <span class="details__attribute">Genre
                             </span>
-                            <span class="details__attribute-value details__genre">${genreArr}</span>
+                            <span class="details__attribute-value details__genre">${allGenres}</span>
                         </li>
                     </ul>
                     <p class="details__subtitle">about</p>
@@ -169,6 +170,8 @@ export async function getDetails(movieId) {
   box.insertAdjacentHTML('afterbegin', markupImg);
   infoBox.insertAdjacentHTML('afterbegin', markup);
 }
+
+sliderTrack.addEventListener('click', clickForDetails);
 
 //+++++close-modal++++++
 
@@ -195,21 +198,27 @@ const onClose = e => {
   detailsModal.classList.add('isHidden');
   backdropDetails.style.backgroundColor = 'black';
   backdropDetails.style.backgroundImage = 'url(#)';
+  modal.classList.remove('isAppeared');
+  backdropDetails.classList.remove('isAppeared');
 };
 
 const closeByEsc = e => {
-  //   e.preventDefault();
   if (e.code === 'Escape') {
     detailsModal.classList.add('isHidden');
+    modal.classList.remove('isAppeared');
+    backdropDetails.classList.remove('isAppeared');
   }
 };
 
 const onBackdropClose = e => {
-  //   e.preventDefault();
   if (e.target === e.currentTarget) {
     onClose();
   }
 };
+
+window.addEventListener('keydown', closeByEsc);
+detCloseBtn.addEventListener('click', onClose);
+backdropDetails.addEventListener('click', onBackdropClose);
 
 function checkArr(arr, movieID, arrName) {
   const selector = arrName;
@@ -226,6 +235,10 @@ function checkArr(arr, movieID, arrName) {
   }
 }
 
-window.addEventListener('keydown', closeByEsc);
-detCloseBtn.addEventListener('click', onClose);
-backdropDetails.addEventListener('click', onBackdropClose);
+function windowAppear() {
+  detailsModal.classList.remove('isHidden');
+  backdropDetails.classList.add('isAppeared');
+  setTimeout(() => {
+    modal.classList.add('isAppeared');
+  }, 1000);
+}

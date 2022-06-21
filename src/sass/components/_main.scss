@@ -143,6 +143,7 @@
 .main__movie-img {
     margin-bottom: 10px;
     width: 100%;
+    height: 450px;
     border-radius: 5px;
     cursor: pointer;
 
@@ -193,4 +194,11 @@
 }
 
 
-
+.main__search-error {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.14;
+    margin: 20px auto 0;
+    text-align: center;
+    color: #FF001B;
+}

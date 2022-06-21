@@ -1,16 +1,17 @@
  .filters{
     @include centered;
-    margin: 0 auto;
+    margin: 20px auto 0;
     font-family: 'Roboto';
-    @include respond-to(mobile) {
+    @include respond-to(mobile-only) {
+        width: 300px;
         flex-wrap: wrap;
+        align-items: center;
     }
 }
 
 .filter{
     cursor: pointer;
     position: relative;
-    margin-right: 15px;
     background-color:rgba($color: $footer-text-color, $alpha: 0.8);
         &:hover .filter--title::after{
         width: 100%;
@@ -20,20 +21,29 @@
         &:hover .filter--list{
             left: 0;
         }
+        &:not(:last-child){
+            margin-right: 15px;
+        }
         @include respond-to(mobile-only) {
-            &:not(:last-child) {
-                margin-bottom: 20px;
+            &:nth-child(-n+2) {
+                margin-bottom: 10px;
+                &:nth-child(even){
+                    margin-right: 0;
+                }    
             }
         } 
 }
 
 .filter--title {
+    @include centered;
     position: relative;
     color: $header-text-color;
     width: 112px;
+    height: 29px;
     text-align: center;
     border-radius: 5px;
-    padding: 5px;
+    // padding: 5.25px;
+
     font-family: inherit;
     transition: color .25s cubic-bezier(.4, 0, .2, 1);
 
@@ -54,7 +64,7 @@
 }
 
 .filter--title:hover,
-.filter--title:active {
+.filter--title:focus {
     color: $second-accent-color;
 
 }
@@ -79,18 +89,67 @@
             height: 20px;
          }
 
-        &:hover .filter--title::after {
+        &:hover .filter--title::after,
+        &:focus .filter--title::after {
             width: 100%;
             transition: transform 0.6s;
         }      
 }
 .filter--item__genre{
     margin-top: 3px;
+    &:hover,
+    &:focus{
+    background-color: $accent-color;
+    }
 }
 .filter--item__year{
     margin-top: 3px;
+    &:hover,
+    &:focus{
+    background-color: $accent-color;
+    }
 }
 
 .filter-item__color{
   background-color: $accent-color;
+}
+
+.header__select {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    display: block;
+    height: 29px;
+    width: 112px;
+
+    font-family: 'Roboto';
+    text-align: center;
+
+    color: $header-text-color;
+
+    &::before {
+        position: absolute;
+        height: 3px;
+        background-color: $accent-color;
+        content: '';
+        transition: width 0.3s ease;
+        top: 25px;
+        border-radius: 2px;
+        opacity: 0;
+    }
+}
+
+.header__select--item {
+    background-color: transparent;
+
+    &:hover {
+        background-color: $second-accent-color;
+    }
+}
+
+option:checked {
+    background-color: $second-accent-color;
+    box-shadow: 0 0 10px 100px #fff inset;
 }

@@ -1,0 +1,76 @@
+.header-section__library {
+    // height: 230px;
+    padding: 40px 20px 62px;
+    background-image: linear-gradient(to right,
+            rgba(0, 0, 0, 0.56),
+            rgba(0, 0, 0, 0.56)),
+        url('../images/library-mobile.jpg');
+
+    @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+        background-image: linear-gradient(to right,
+                rgba(0, 0, 0, 0.56),
+                rgba(0, 0, 0, 0.56)),
+            url('../images/library-mobile-x2.jpg');
+    }
+
+    @media screen and (min-width: 768px) {
+        background-image: linear-gradient(to right,
+                rgba(0, 0, 0, 0.56),
+                rgba(0, 0, 0, 0.56)),
+            url('../images/library-tablet.jpg');
+
+        @media (min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi),
+        (min-resolution: 2dppx) {
+            background-image: linear-gradient(to right,
+                    rgba(0, 0, 0, 0.56),
+                    rgba(0, 0, 0, 0.56)),
+                url('../images/library-tablet-x2.jpg');
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        background-image: linear-gradient(to right,
+                rgba(0, 0, 0, 0.56),
+                rgba(0, 0, 0, 0.56)),
+            url('../images/library-pc.jpg');
+
+        @media (min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi),
+        (min-resolution: 2dppx) {
+            background-image: linear-gradient(to right,
+                    rgba(0, 0, 0, 0.56),
+                    rgba(0, 0, 0, 0.56)),
+                url('../images/library-pc-x2.jpg');
+        }
+    }
+}
+
+.header-library__list {
+    @include centered;
+}
+
+.header-library__item {
+    &:not(:last-child) {
+        margin-right: 20px;
+    }
+}
+
+.header-library__btn {
+    width: 130px;
+    height: 44px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 1px solid $header-text-color;
+    color: $header-text-color;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33;
+    transition-property: background-color, color, border-color;
+    transition-duration: 0.25s;
+    transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}

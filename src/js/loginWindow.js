@@ -204,6 +204,9 @@ Refs.logOutBtn.addEventListener('click', onLogOutBtn);
 function onLogOutBtn(e) {
   const listEl = document.querySelector('.main__movie-card-list');
   const loaderEl = document.querySelector('.loader');
+  const headerSectionRef = document.querySelector('.header-section');
+  const headerMain = document.querySelector('.header-main');
+  const headLib = document.querySelector('.header-main__library');
   loaderEl.style.display = 'block';
   signOut(auth)
     .then(() => {
@@ -211,6 +214,9 @@ function onLogOutBtn(e) {
       signupForm.reset();
       loginForm.reset();
       renderNewPage();
+      headerSectionRef.classList.remove('header-section__library');
+      headerMain.classList.remove('--is-hidden');
+      headLib.classList.add('--is-hidden');
       listEl.classList.add('--is-hidden');
 
       setTimeout(() => {

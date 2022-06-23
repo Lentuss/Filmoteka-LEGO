@@ -2,6 +2,7 @@ import { API_KEY, DETAILS_URL, IMAGE_URL, BACKDROP_URL } from './apiVariables';
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
+import { onOpenModal } from './loginWindow';
 
 import { getDatabase, ref, onValue } from 'firebase/database';
 const firebaseConfig = {
@@ -19,6 +20,27 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
+import { createMarkUpLibraryList } from './myLibrary';
+import {
+  addMovieInfoToDataBaseWatch,
+  removeMovieIDFromWatched,
+  addMovieInfoToDataBaseQueue,
+  removeMovieIDFromQueue,
+} from './loginWindow';
+import Notiflix from 'notiflix';
+
+let watchedDataBase = [];
+let queueDataBase = [];
+let watchedArr = [];
+let queueArr = [];
+
+const headerLibraryWatchedBtn = document.querySelector(
+  '#header-libraryWatched__btn'
+);
+const headerLibraryQueueBtn = document.querySelector(
+  '#header-libraryQueue__btn'
+);
+
 const moviesList = document.querySelector('.main__movie-card-list');
 const detailsModal = document.querySelector('.details');
 const backdropDetails = document.querySelector('.details__backdrop');
@@ -28,35 +50,40 @@ const detCloseBtn = document.querySelector('.details__close-button');
 const sliderItem = document.querySelector('.slider-item');
 const sliderTrack = document.querySelector('.slider-track');
 
-//on slider??
-///проверки
-//убрать клик с жанров
-
 const clickForDetails = e => {
   e.preventDefault();
+  // if (e.target.classList.contains('main__movie-card-item')) {
+  //   console.log(e.target);
+
+  //   return;
+  // }
   windowAppear();
 
   const uid = auth.lastNotifiedUid;
-  let watchedArr = [];
-  let queueArr = [];
-
   if (uid) {
     const allInfo = ref(db, 'users/' + uid);
     const ifOnValue = onValue(allInfo, snapshot => {
       const data = snapshot.val();
-
       if (!data) {
-        console.log('All Data Base Is Empty');
+        queueDataBase = [];
+        watchedDataBase = [];
+        queueArr = [];
+        watchedArr = [];
+        // console.log('All Data Base Is Empty');
       } else {
         if (!data.watched) {
-          console.log('watched Base Is Empty');
+          watchedDataBase = [];
+          // console.log('watched Base Is Empty');
         } else {
+          watchedDataBase = data.watched;
           watchedArr = Object.keys(data.watched);
         }
 
         if (!data.queue) {
-          console.log('queue Base Is Empty');
+          queueDataBase = [];
+          // console.log('queue Base Is Empty');
         } else {
+          queueDataBase = data.queue;
           queueArr = Object.keys(data.queue);
         }
       }
@@ -65,12 +92,7 @@ const clickForDetails = e => {
 
   clearInfo();
 
-  if (
-    e.target.nodeName === 'UL'
-    // ||
-    // e.target.nodeName === 'SPAN' ||
-    // e.target.nodeName === 'P'
-  ) {
+  if (e.target.nodeName === 'UL') {
     return;
   }
 
@@ -79,7 +101,6 @@ const clickForDetails = e => {
   checkArr(watchedArr, movieId, 'Watched');
   checkArr(queueArr, movieId, 'Queue');
 
-  console.log(movieId);
   getDetails(movieId);
 };
 
@@ -104,7 +125,7 @@ export async function getDetails(movieId) {
     release_date,
   } = details;
 
-  checkBackdrop(backdrop_path); //////переробити
+  checkBackdrop(backdrop_path);
 
   function checkBackdrop(backdrop_path) {
     const backdropImg = `url(${BACKDROP_URL + backdrop_path})`;
@@ -141,7 +162,7 @@ export async function getDetails(movieId) {
                             <span class="details__attribute"> Vote/Votes
                             </span>
                             <span class="details__attribute-value">
-                                <span class="details__attribute-vote">${vote_count}</span> / ${vote_average}</span>
+                                <span class="details__attribute-vote">${vote_average}</span> / ${vote_count}</span>
                         </li>
                         <li>
                             <span class="details__attribute">Popularity
@@ -200,6 +221,12 @@ const onClose = e => {
   backdropDetails.style.backgroundImage = 'url(#)';
   modal.classList.remove('isAppeared');
   backdropDetails.classList.remove('isAppeared');
+
+  if (headerLibraryWatchedBtn.classList.contains('--is-active')) {
+    activeLibraryList(watchedDataBase);
+  } else if (headerLibraryQueueBtn.classList.contains('--is-active')) {
+    activeLibraryList(queueDataBase);
+  }
 };
 
 const closeByEsc = e => {
@@ -241,4 +268,131 @@ function windowAppear() {
   setTimeout(() => {
     modal.classList.add('isAppeared');
   }, 1000);
+}
+
+function activeLibraryList(arr) {
+  const listEl = document.querySelector('.main__movie-card-list');
+  listEl.innerHTML = '';
+  createMarkUpLibraryList(arr);
+}
+
+window.addEventListener('keydown', closeByEsc);
+detCloseBtn.addEventListener('click', onClose);
+backdropDetails.addEventListener('click', onBackdropClose);
+
+const Refs = {
+  details__modal: document.querySelector('.details__modal'),
+};
+
+Refs.details__modal.addEventListener('click', addToWatched);
+Refs.details__modal.addEventListener('click', addToQueue);
+Refs.details__modal.addEventListener('click', removeFromWatched);
+Refs.details__modal.addEventListener('click', removeFromQueue);
+
+function addToWatched(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector(
+    '.removeFromWatchedBtn-JS'
+  );
+  const uid = auth.lastNotifiedUid;
+
+  if (!event.target.classList.contains('addToWatchedBtn-JS')) {
+    return;
+  } else if (!uid) {
+    Notiflix.Notify.info('Login please or Register to add');
+    onOpenModal();
+  } else if (uid) {
+    const movieID = event.target
+      .closest('.details__box')
+      .getAttribute('data-id');
+    const imgPoster = Refs.details__modal
+      .querySelector('.details__image')
+      .getAttribute('src');
+    const titleDetails =
+      Refs.details__modal.querySelector('.details__title').textContent;
+    const genres =
+      Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target
+      .closest('.details__box')
+      .getAttribute('data-date');
+
+    addMovieInfoToDataBaseWatch(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
+  }
+}
+
+function removeFromWatched(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector(
+    '.removeFromWatchedBtn-JS'
+  );
+  if (!event.target.classList.contains('removeFromWatchedBtn-JS')) {
+    return;
+  }
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
+  const uid = auth.lastNotifiedUid;
+  removeMovieIDFromWatched(uid, movieID);
+  addBtn.classList.remove('isHidden');
+  removeBtn.classList.add('isHidden');
+  watchedArr = [];
+}
+
+function addToQueue(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
+  const uid = auth.lastNotifiedUid;
+  if (!event.target.classList.contains('addToQueueBtn-JS')) {
+    return;
+  } else if (!uid) {
+    Notiflix.Notify.info('Login please or Register to add');
+
+    onOpenModal();
+  } else if (uid) {
+    const movieID = event.target
+      .closest('.details__box')
+      .getAttribute('data-id');
+    const imgPoster = Refs.details__modal
+      .querySelector('.details__image')
+      .getAttribute('src');
+    const titleDetails =
+      Refs.details__modal.querySelector('.details__title').textContent;
+    const genres =
+      Refs.details__modal.querySelector('.details__genre').textContent;
+    const year = event.target
+      .closest('.details__box')
+      .getAttribute('data-date');
+
+    addMovieInfoToDataBaseQueue(
+      movieID,
+      titleDetails,
+      imgPoster,
+      genres,
+      year,
+      uid
+    );
+    addBtn.classList.add('isHidden');
+    removeBtn.classList.remove('isHidden');
+  }
+}
+
+function removeFromQueue(event) {
+  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
+  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
+  if (!event.target.classList.contains('removeFromQueueBtn-JS')) {
+    return;
+  }
+  const movieID = event.target.closest('.details__box').getAttribute('data-id');
+  const uid = auth.lastNotifiedUid;
+  removeMovieIDFromQueue(uid, movieID);
+  addBtn.classList.remove('isHidden');
+  removeBtn.classList.add('isHidden');
+  queueArr = [];
 }

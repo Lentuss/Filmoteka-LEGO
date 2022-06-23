@@ -1,93 +1,62 @@
 <div class="backdrop backdrop--is-hidden" data-backdrop>
   <div class="modal">
     <div id="logInDiv">
-      <form class="logInForm" autocomplete="on" validate id="login-form">
+      <form class="logInForm" autocomplete="on" id="login-form">
         <div class="form-container">
-          <label>
-            Email
-            <input
-              type="email"
-              class="inputStyle"
-              name="email"
-              id="input-email"
-            />
+          <label class="form-container__label">
+            <span class="form-container__span">Email</span>
+            <input type="email" class="inputStyle" name="email" id="input-email" />
           </label>
 
-          <label>
-            Password
-            <input
-              type="password"
-              class="inputStyle"
-              name="password"
-              id="input-password"
-            />
+          <label class="form-container__label">
+            <span class="form-container__span">Password</span>
+            <input type="password" class="inputStyle" name="password" id="input-password" />
           </label>
         </div>
 
-        <button
-          type="submit"
-          data-action="logIn-submit-btn"
-          class="loginSubmitBtn"
-        >
+        <button type="submit" data-action="logIn-submit-btn" class="loginSubmitBtn">
           Log In
         </button>
       </form>
     </div>
     <!-- ==================  SIGN UP =============================== -->
     <div class="--is-hidden" id="signUpDiv">
-      <form class="logInForm" autocomplete="on" validate id="signup-form">
+      <form class="logInForm logInForm__singup" autocomplete="on" id="signup-form">
         <div class="form-container">
-          <label>
-            Email
-            <input
-              type="email"
-              class="inputStyle"
-              name="email"
-              id="signup-input-email"
-            />
+          <label class="form-container__label">
+            <span class="form-container__span">Email</span>
+            <input type="email" class="inputStyle" name="email" id="signup-input-email" />
           </label>
 
-          <label>
-            Password
-            <input
-              type="password"
-              class="inputStyle"
-              name="password"
-              id="signup-input-password"
-            />
+          <label class="form-container__label">
+            <span class="form-container__span">Password</span>
+            <input type="password" class="inputStyle" name="password" id="signup-input-password" />
           </label>
 
-          <label>
-            Confirm password
-            <input
-              type="password"
-              class="inputStyle"
-              name="password-confirmation"
-              id="passwordConfirm"
-            />
+          <label class="form-container__label">
+            <span class="form-container__span">Confirm password</span>
+            <input type="password" class="inputStyle" name="password-confirmation" id="passwordConfirm" />
           </label>
         </div>
 
-        <button
-          type="submit"
-          data-action="signup-submit-btn"
-          class="loginSubmitBtn"
-        >
+        <button type="submit" data-action="signup-submit-btn" class="loginSubmitBtn loginSubmitBtn__singup">
           Sign Up
         </button>
       </form>
     </div>
-
     <button class="modal__closeBtn" data-modal-close>
-      <svg width="11" height="11">
-        <use href="./images/sprite.svg#closeBtnLoginWindow"></use>
+      <svg class="modal__closeBtn--svg" width="18px" height="18px">
+        <use href="/src/images/sprite.svg#footer-modal-close"></use>
       </svg>
     </button>
-    <div>
+    <div class="logInDiv-container__btn">
       <button type="button" class="logInBtn-JS btnStyle">Log In Window</button>
       <button type="button" class="signUpBtn-JS btnStyle">
         Sign Up Window
       </button>
+    </div>
+    <div class="logOutDiv-container__btn logout-window">
+      <div class="logout-container"></div>
       <button type="button" class="logOutBtn-JS btnStyle">Logout</button>
     </div>
   </div>

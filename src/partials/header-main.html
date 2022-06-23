@@ -16,9 +16,10 @@
 
             <ul class="header-btns">
                 <li class="header-btns__item"><button type="button" data-action="header-home-button"
-                        class="header-btns__label is-current">Home</button> </li>
+                        class="header-btns__label is-current homeBtn">Home</button> </li>
                 <li class="header-btns__item">
-                    <button type="button" data-action="header-library-button" class="header-btns__label --is-hidden">
+                    <button type="button" data-action="header-library-button"
+                        class="header-btns__label --is-hidden libraryBtn">
                         My library
                     </button>
                 </li>
@@ -46,7 +47,7 @@
 
         <div class="header-main">
             <form class="header-form" id="search-form">
-                <input class="header-form__input" type="text" autocomplete="off" placeholder="Пошук фільмів"
+                <input class="header-form__input" type="text" autocomplete="off" placeholder="Search movies"
                     id="input-form" name="searchQuery" />
 
 
@@ -57,48 +58,45 @@
                 </button>
             </form>
 
-            <!-- Error-message -->
-            <p class="search-error visually-hidden">
-                Search result not successful. Enter the correct movie name.
-            </p>
+
 
             <!-- Sort buttons -->
             <div class="filters">
                 <div class="filter filter__ganres ">
-                    <p class="filter--title filter--title__genres">GENRES &#9660</p>
+                    <p class="filter--title filter--title__genres">GENRES &#9660;</p>
                     <ul class="filter--list filter--list__genres is-hidden"></ul>
                 </div>
                 <div class="filter filter__years">
-                    <p class="filter--title filter--title__years ">YEARS &#9660</p>
+                    <p class="filter--title filter--title__years ">YEARS &#9660;</p>
                     <ul class="filter--list filter--list__years is-hidden"></ul>
                 </div>
                 <!-- Sort buttons -->
-                    <select name="select" id="select" class="filter header__select">
-                        <option class="filter--title">SORT BY &#9660</option>
-                        <option value="popularity.desc">Popularity Up</option>
-                        <option value="popularity.asc">Popularity Down</option>
-                        <option value="release_date.desc">Date Up</option>
-                        <option value="release_date.asc">Date Down</option>
-                        <option value="original_title.asc">Title (A-Z)</option>
-                        <option value="original_title.desc">Title (Z-A)</option>
-                    </select>
-                
+                <select name="select" id="select" class="filter header__select">
+                    <option class="filter--title">SORT BY &#9660;</option>
+                    <option value="popularity.desc">Popularity Up</option>
+                    <option value="popularity.asc">Popularity Down</option>
+                    <option value="release_date.desc">Date Up</option>
+                    <option value="release_date.asc">Date Down</option>
+                    <option value="original_title.asc">Title (A-Z)</option>
+                    <option value="original_title.desc">Title (Z-A)</option>
+                </select>
+
             </div>
         </div>
 
         <div class="header-main__library --is-hidden">
             <ul class="header-library__list">
                 <li class="header-library__item">
-                    <button class="header-library__btn">
+                    <button class="header-library__btn" id="header-libraryWatched__btn">
                         WATCHED
                     </button>
                 </li>
                 <li class="header-library__item">
-                    <button class="header-library__btn">
+                    <button class="header-library__btn " id="header-libraryQueue__btn">
                         QUEUE
                     </button>
                 </li>
             </ul>
         </div>
-
+    </div>
 </header>

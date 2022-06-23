@@ -12,36 +12,35 @@ const filterGeners = document.querySelector('.filter__ganres');
 const loaderEl = document.querySelector('.loader');
 const filtersEl = document.querySelector('.filters');
 const mainBtnsEl = document.querySelector('.main__button-list');
-
+const failedSearch = document.querySelector('.main__search-error');
+const sliderSection = document.querySelector('.slider-section');
 const movieFilter = new MovieFilter();
 const genres = getGenres();
 export let selectedGenre = [];
-export let selectedYear = [];
- 
+export let selectedYear = []; 
 setGenre();
 setYear();
 async function getFilerFilms() {
-    const response = await movieFilter.sortByGenre();
-    const responseJson = await response.json();
-    const results = await responseJson;
-   
-   getRenderMoviesList(results);
-   
+  const response = await movieFilter.sortByGenre();
+  const responseJson = await response.json();
+  const results = await responseJson;  
+  getRenderMoviesList(results); 
 }
 function getRenderMoviesList(data) {
-      const createListFiltedMovie = createListMarkup(data);
-    loaderFilms();
+  const createListFiltedMovie = createListMarkup(data);
+  loaderFilms();
+  setTimeout(() => {
     listEl.insertAdjacentHTML('beforeend', createListFiltedMovie);
-    observer.observe(listEl.lastElementChild);
-}
-   
+    sliderSection.style.position = 'static';
+  }, 1500);
+  observer.observe(listEl.lastElementChild);
+}   
 function loaderFilms() {
-    loaderEl.style.display = "block";
-     setTimeout(() => {
-   loaderEl.style.display = "none";
+  loaderEl.style.display = "block";
+  setTimeout(() => {
+    loaderEl.style.display = "none";
   }, 1500);
 }
-
 function setGenre() {
   genresEl.innerHTML = '';
   genres.forEach(item => {
@@ -53,92 +52,92 @@ function setGenre() {
       listEl.innerHTML = '';
       movieFilter.resetPage();
       if (selectedGenre.length === 0) {
-          selectedGenre.push(item.id);
-          genre.classList.add('filter-item__color');
+        selectedGenre.push(item.id);
+        genre.classList.add('filter-item__color');
       } else if (selectedGenre.includes(item.id)) {
         selectedGenre.forEach((id, idx) => {
           if (id == item.id) {
-              selectedGenre.splice(idx, 1);
-              genre.classList.remove('filter-item__color');
+            selectedGenre.splice(idx, 1);
+            genre.classList.remove('filter-item__color');
           }
         });
       } else {
           selectedGenre.push(item.id);
           genre.classList.add('filter-item__color');
-      }
-        renderFilteredList();
+        }
+      renderFilteredList();
     });
       genresEl.append(genre);
   });
 }
-
 function setYear() {
-    yearsEl.innerHTML = '';
-    let startYear = 1880;
-    let endYear = new Date().getFullYear();
-    for (let i = endYear; i > startYear; i--) {
-        let year = document.createElement('li');
-        year.classList.add('filter--item__year');
-        year.value = `${i}`;
-        year.textContent = `${i}`;
-        yearsEl.append(year);
-        year.addEventListener('click', () => {
-            listEl.innerHTML = '';
-            movieFilter.resetPage();
-            if (selectedYear.length == 0) {
-                selectedYear.push(i);
-                year.classList.add('filter-item__color');
-            } else if (selectedYear.includes(i)) {
-                selectedYear.forEach((i, idx) => {
-                    if (i == i) {
-                        selectedYear.splice(idx, 1);
-                        year.classList.remove('filter-item__color');
-                    }
-                });
-            } else {
-                selectedYear.push(i);
-                year.classList.add('filter-item__color');
+  yearsEl.innerHTML = '';
+  let startYear = 1880;
+  let endYear = new Date().getFullYear();
+  for (let i = endYear; i > startYear; i--) {
+    let year = document.createElement('li');
+    year.classList.add('filter--item__year');
+    year.value = `${i}`;
+    year.textContent = `${i}`;
+    yearsEl.append(year);
+    year.addEventListener('click', () => {
+    listEl.innerHTML = '';
+    movieFilter.resetPage();
+      if (selectedYear.length == 0) {
+        selectedYear.push(i);
+        year.classList.add('filter-item__color');
+      } else if (selectedYear.includes(i)) {
+          selectedYear.forEach((i, idx) => {
+            if (i == i) {
+              selectedYear.splice(idx, 1);
+              year.classList.remove('filter-item__color');
             }
-            console.log(selectedYear);
-            renderFilteredList();
-        });
-    }
+          });
+        } else {
+          selectedYear.push(i);
+          year.classList.add('filter-item__color');
+          }
+      renderFilteredList();
+    });
+  }
 }
-
 function renderFilteredList() {
-    if (selectedGenre.length > 0 || selectedYear.length > 0) {
-                getFilerFilms();
-                renderClearBtn();
-                mainBtnsEl.style.display = "none";
-            } else {
-                renderNewPage();
-            } 
+  if (selectedGenre.length > 0 || selectedYear.length > 0) {
+    sliderSection.style.position = '';
+    getFilerFilms();
+    renderClearBtn();
+    mainBtnsEl.style.display = "none";
+    failedSearch.classList.add("visually-hidden");
+    } else {
+      renderNewPage();
+      } 
 }
 
 export function renderClearBtn() {
-    let clearBtn = document.getElementById('clear');
-    if (clearBtn) {
-        return;
-    } else {
-        let clear = document.createElement('li');
-        clear.classList.add('filter', 'filter-button');
-        clear.id = 'clear';
-        clear.innerHTML = `<p class="filter--title filter--title__clear">CLEAR</p>`
-        filtersEl.append(clear);
+  let clearBtn = document.getElementById('clear');
+  if (clearBtn) {
+    return;
+  } else {
+    let clear = document.createElement('li');
+    clear.classList.add('filter', 'filter-button');
+    clear.id = 'clear';
+    clear.innerHTML = `<p class="filter--title filter--title__clear">CLEAR</p>`
+    filtersEl.append(clear);
     }
-    clear.addEventListener('click', () => {
-        clearList();
+  clear.addEventListener('click', () => {
+      clearList();
     });
 };
 
 function clearList() {
-    selectedGenre = [];
-    selectedYear = [];
-    renderNewPage();
-    mainBtnsEl.style.display = "flex";
-    setYear();
-    setGenre();
-    clear.remove();
+  selectedGenre = [];
+  selectedYear = [];
+  renderNewPage();
+  mainBtnsEl.style.display = "flex";
+  sliderSection.style.position = '';
+  setYear();
+  setGenre();
+  clear.remove();
 }
  
 filterGeners.addEventListener('mouseover', () => {
@@ -160,7 +159,6 @@ filterYears.addEventListener('click', () => {
 filterYears.addEventListener('mouseout', () => {
   yearsEl.classList.add('is-hidden');
 });
-
 
 // infinite scroll
 const options = {

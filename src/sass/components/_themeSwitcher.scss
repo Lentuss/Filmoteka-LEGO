@@ -2,107 +2,112 @@ body.light-theme {
   background-color: #fff;
   color: #000000;
 
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
-.light-on {  
-background-color: #fff;
-color: #000000;
-
-transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dark-on {
-
-background-color: rgb(75, 75, 75);
- color: #fff;
-
- transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-body.dark-theme {
-
-  background-color: rgb(75, 75, 75);
-  color: #fff;
-
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-.button-light{
+.light-on {
   background-color: #fff;
   color: #000000;
 
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.button-dark{
+.dark-on {
+  background-color: rgb(75, 75, 75);
+  color: #fff;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.dark-theme {
+  background-color: rgb(75, 75, 75);
+  color: #fff;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.button-light {
+  background-color: #fff;
+  color: #000000;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-dark {
   background-color: rgba(128, 128, 128, 0.349);
   color: #fff;
 
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-footer.footer-light{
-background-color: #F7F7F7;
-color: #545454;
-
+footer.footer-light {
+  background-color: #f7f7f7;
+  color: #545454;
 }
 
-footer.footer-dark{
+footer.footer-dark {
   background-color: #333;
   color: #fff;
-  }
+}
 
-  .title-light{
-    color: #000000;
-  }
+.title-light {
+  color: #000000;
+}
 
-  .title-dark{
-    color:#fff;
-  }
-  
+.title-dark {
+  color: #fff;
+}
+
 /* The switch - the box around the slider */
-.switch-container{
+.switch-container {
   display: flex;
-  
+
   justify-content: flex-end;
-  
+
   align-self: flex-start;
 }
 .switch {
   position: relative;
   display: inline-block;
   width: 50px;
-  height: 24px;
- 
+  height: 20px;
 }
 
 /* Hide default HTML checkbox */
-.switch input {display:none;}
+.switch input {
+  display: none;
+}
 
 /* The slider */
 .slider {
   position: absolute;
+  border-radius: 5px;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: #333;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
+  border-radius: 5px;
   height: 16px;
   width: 16px;
   left: 4px;
-  bottom: 4px;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  bottom: 2px;
+  background-color: #ff6b08;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
@@ -128,6 +133,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.switch-container{
+.switch-container {
   align-items: flex-end;
 }

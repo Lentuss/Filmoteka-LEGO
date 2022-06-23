@@ -30,6 +30,7 @@ const sliderTimeout = window.setTimeout(() => {
     }
     position -= 2;
     setPositon();
+
     if (position <= -(itemsCount - slidesToShow) * itemWidth) {
       clearInterval(sliderInterval);
     }

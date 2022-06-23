@@ -1,11 +1,13 @@
 import { BASE_URL } from './apiVariables';
-// import { getGenreById } from './getGenres';
 import GetFilmsApiService from './getFilmsApiService';
 import { createListMarkup } from './renderFilms';
 
 const listEl = document.querySelector('.main__movie-card-list');
 const btnDayEl = document.querySelector('.trends-of-day');
 const btnWeekEl = document.querySelector('.trends-of-week');
+
+const loaderEl = document.querySelector('.loader');
+loaderEl.style.display = 'none';
 
 const getFilmsApiService = new GetFilmsApiService();
 
@@ -22,19 +24,39 @@ export function renderNewPage() {
 
 function onBtnDayClick() {
   getFilmsApiService.trendsOfDay();
-  renderNewPage();
-}
+  btnDayEl.classList.add('--is-hidden');
+  btnWeekEl.classList.add('--is-hidden');
 
+  renderNewPage();
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+    btnDayEl.classList.remove('--is-hidden');
+    btnWeekEl.classList.remove('--is-hidden');
+    loaderEl.style.display = 'none';
+  }, 1000);
+}
 function onBtnWeekClick() {
   getFilmsApiService.trendsOfWeek();
+  btnDayEl.classList.add('--is-hidden');
+  btnWeekEl.classList.add('--is-hidden');
   renderNewPage();
+  listEl.classList.add('--is-hidden');
+
+  setTimeout(() => {
+    listEl.classList.remove('--is-hidden');
+    btnWeekEl.classList.remove('--is-hidden');
+    btnDayEl.classList.remove('--is-hidden');
+    loaderEl.style.display = 'none';
+  }, 1000);
 }
 
 export async function getTrendFilms() {
   try {
     const requestedFilms = await getFilmsApiService.getTrendFilms(BASE_URL);
     onGetSucces(requestedFilms);
-    console.log(requestedFilms);
+    // console.log(requestedFilms);
   } catch (error) {
     onGetError();
   }

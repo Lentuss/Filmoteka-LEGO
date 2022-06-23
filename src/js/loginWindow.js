@@ -1,5 +1,3 @@
-import { MovieDataBase } from './fireDb';
-import libraryRender from './renderLibrary';
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
   timeout: 1500,
@@ -8,12 +6,23 @@ Notiflix.Notify.init({
   distance: '10px',
   opacity: 1,
   clickToClose: true,
+  info: {
+    background: '#ff6b08',
+    textColor: '#fff',
+    childClassName: 'notiflix-notify-info',
+    notiflixIconColor: 'rgba(0,0,0,0.2)',
+    fontAwesomeClassName: 'fas fa-info-circle',
+    fontAwesomeIconColor: 'rgba(0,0,0,0.2)',
+    backOverlayColor: 'rgba(38,192,211,0.2)',
+  },
 });
+import flatpickr from 'flatpickr';
+import { renderNewPage } from './getTrendFilms';
 
 import { initializeApp } from 'firebase/app';
 
 // TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -21,17 +30,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import {
-  getDatabase,
-  ref,
-  set,
-  onValue,
-  get,
-  once,
-  remove,
-} from 'firebase/database';
+import { getDatabase, ref, set, onValue, remove } from 'firebase/database';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyAXr3vyab8PJtuI-kO5zXVUNDPWQzN3ayY',
   authDomain: 'filmoteka-group5.firebaseapp.com',
@@ -59,131 +59,12 @@ const Refs = {
   logOutBtn: document.querySelector('.logOutBtn-JS'),
   signUpDiv: document.querySelector('#signUpDiv'),
   logInDiv: document.querySelector('#logInDiv'),
-  //==================== PRACTICE =============
-  queuedBtn: document.querySelector('[data-action="details-queue-btn"]'),
-  details__modal: document.querySelector('.details__modal'),
-  //==================== PRACTICE =============
+  logoutDiv: document.querySelector('.logout-container'),
 };
-
-//==================== PRACTICE ADD BUTTON LOGIC START =============
-
-//==================== PRACTICE =============
-
-Refs.details__modal.addEventListener('click', addToWatched);
-Refs.details__modal.addEventListener('click', addToQueue);
-Refs.details__modal.addEventListener('click', removeFromWatched);
-Refs.details__modal.addEventListener('click', removeFromQueue);
-
-//==================== PRACTICE =============
-
-//==================== PRACTICE =============
-
-function addToWatched(event) {
-  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
-  const removeBtn = Refs.details__modal.querySelector(
-    '.removeFromWatchedBtn-JS'
-  );
-  const uid = auth.lastNotifiedUid;
-
-  if (!event.target.classList.contains('addToWatchedBtn-JS')) {
-    return;
-  } else if (uid) {
-    const movieID = event.target
-      .closest('.details__box')
-      .getAttribute('data-id');
-    const imgPoster = Refs.details__modal
-      .querySelector('.details__image')
-      .getAttribute('src');
-    const titleDetails =
-      Refs.details__modal.querySelector('.details__title').textContent;
-    const genres =
-      Refs.details__modal.querySelector('.details__genre').textContent;
-    const year = event.target
-      .closest('.details__box')
-      .getAttribute('data-date');
-
-    addMovieInfoToDataBaseWatch(
-      movieID,
-      titleDetails,
-      imgPoster,
-      genres,
-      year,
-      uid
-    );
-    addBtn.classList.add('isHidden');
-    removeBtn.classList.remove('isHidden');
-  }
-}
-
-function removeFromWatched(event) {
-  const addBtn = Refs.details__modal.querySelector('.addToWatchedBtn-JS');
-  const removeBtn = Refs.details__modal.querySelector(
-    '.removeFromWatchedBtn-JS'
-  );
-  if (!event.target.classList.contains('removeFromWatchedBtn-JS')) {
-    return;
-  }
-  const movieID = event.target.closest('.details__box').getAttribute('data-id');
-  const uid = auth.lastNotifiedUid;
-  removeMovieIDFromWatched(uid, movieID);
-  addBtn.classList.remove('isHidden');
-  removeBtn.classList.add('isHidden');
-}
-
-function addToQueue(event) {
-  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
-  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
-  const uid = auth.lastNotifiedUid;
-  if (!event.target.classList.contains('addToQueueBtn-JS')) {
-    return;
-  } else if (uid) {
-    const movieID = event.target
-      .closest('.details__box')
-      .getAttribute('data-id');
-    const imgPoster = Refs.details__modal
-      .querySelector('.details__image')
-      .getAttribute('src');
-    const titleDetails =
-      Refs.details__modal.querySelector('.details__title').textContent;
-    const genres =
-      Refs.details__modal.querySelector('.details__genre').textContent;
-    const year = event.target
-      .closest('.details__box')
-      .getAttribute('data-date');
-
-    addMovieInfoToDataBaseQueue(
-      movieID,
-      titleDetails,
-      imgPoster,
-      genres,
-      year,
-      uid
-    );
-    addBtn.classList.add('isHidden');
-    removeBtn.classList.remove('isHidden');
-  }
-}
-
-function removeFromQueue(event) {
-  const addBtn = Refs.details__modal.querySelector('.addToQueueBtn-JS');
-  const removeBtn = Refs.details__modal.querySelector('.removeFromQueueBtn-JS');
-  if (!event.target.classList.contains('removeFromQueueBtn-JS')) {
-    return;
-  }
-  const movieID = event.target.closest('.details__box').getAttribute('data-id');
-  const uid = auth.lastNotifiedUid;
-  removeMovieIDFromQueue(uid, movieID);
-  addBtn.classList.remove('isHidden');
-  removeBtn.classList.add('isHidden');
-}
-//==================== PRACTICE =============
-//==================== PRACTICE ADD BUTTON LOGIC END =============
 
 //============================= AUTH STATUS ========================
 onAuthStateChanged(auth, user => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
     Refs.signUpBtnWindow.classList.add('--is-hidden');
     Refs.logInBtnWindow.classList.add('--is-hidden');
     Refs.logInDiv.setAttribute('style', 'display:none');
@@ -193,17 +74,31 @@ onAuthStateChanged(auth, user => {
     Refs.headLibraryBtn.classList.remove('--is-hidden');
 
     const uid = user.uid;
-    console.log(`User ${uid} Is Logged In`);
+    // console.log(`User ${uid} Is Logged In`);
 
     const allInfo = ref(db, 'users/' + uid);
     onValue(allInfo, snapshot => {
       const data = snapshot.val();
-      console.log(data);
-      // console.log(data.queue);
-      // updateStarCount(postElement, data);
+
+      const userLifeTime = flatpickr.formatDate(
+        new Date(user.metadata.creationTime),
+        'F j, Y'
+      );
+      const userProfile = `
+  <p class="logout-info">
+    User Em@il <span class="user-data">${user.email}</span>
+  </p>
+  <p class="logout-info">
+    You are with us since <span class="user-data">${userLifeTime}</span>
+  </p>;`;
+      Refs.logoutDiv.innerHTML = '';
+
+      Refs.logoutDiv.insertAdjacentHTML('afterbegin', userProfile);
     });
   } else {
     // User is signed out
+    const loaderEl = document.querySelector('.loader');
+    const headerSectionRef = document.querySelector('.header-section');
     Refs.signUpBtnWindow.classList.remove('--is-hidden');
     Refs.logInBtnWindow.classList.remove('--is-hidden');
     Refs.logOutBtn.classList.add('--is-hidden');
@@ -211,7 +106,8 @@ onAuthStateChanged(auth, user => {
     Refs.signUpDiv.setAttribute('style', 'display:flex');
     Refs.headLogInBtn.textContent = 'Log In';
     Refs.headLibraryBtn.classList.add('--is-hidden');
-
+    headerSectionRef.classList.remove('header-section__library');
+    Refs.logoutDiv.innerHTML = '';
     console.log('User Is Signed Out');
   }
 });
@@ -231,16 +127,14 @@ function onSignUpSubmit(e) {
   } else if (password !== passwordConfirm) {
     Notiflix.Notify.warning('Password fields is  not the same');
   } else {
-    // console.log(email, password);
     createUserWithEmailAndPassword(getAuth(), email, password)
       .then(userCredential => {
         // Signed in
         const user = userCredential.user;
-        console.log(userCredential);
-        console.log(user.uid);
-        Notiflix.Notify.success('You Successfully SignUp');
+        // console.log(userCredential);
+        // console.log(user.uid);
+        Notiflix.Notify.info('You Successfully SignUp');
         const userId = user.uid;
-        // writeUserData(userId, email, password);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -272,27 +166,22 @@ function onLogInSubmit(e) {
     .then(userCredential => {
       // Signed in
       const user = userCredential.user;
-      console.log(user);
 
       formData[e.target.email.name] = e.target.email.value;
       formData[e.target.password.name] = e.target.password.value;
       const savedString = JSON.stringify(formData);
-      //   console.log(savedString);
-      //   localStorage.setItem(STORAGE_KEY, savedString);
 
       const userDataBase = {
         date: new Date().toJSON(),
         movieID: savedString,
         user: user,
       };
-      console.log(userDataBase);
+      // console.log(userDataBase);
 
-      Notiflix.Notify.success('Enter Success');
+      Notiflix.Notify.info('Enter Success');
       onCloseModal();
       setTimeout(() => {
         loginForm.reset();
-        // libraryRender();
-        // MovieDataBase.create(userDataBase);
       }, 1500);
 
       // ...
@@ -316,37 +205,43 @@ Refs.logOutBtn.addEventListener('click', onLogOutBtn);
 
 //=================== LOG OUT LOGIC START ==================
 function onLogOutBtn(e) {
+  const listEl = document.querySelector('.main__movie-card-list');
+  const loaderEl = document.querySelector('.loader');
+  loaderEl.style.display = 'block';
   signOut(auth)
     .then(() => {
       // Sign-out successful.
       signupForm.reset();
       loginForm.reset();
+      renderNewPage();
+      listEl.classList.add('--is-hidden');
+
       setTimeout(() => {
-        Notiflix.Notify.success('Logout Success');
-        console.log('Logout Success');
+        Notiflix.Notify.info('Logout Success');
+        // console.log('Logout Success');
+        listEl.classList.remove('--is-hidden');
+        loaderEl.style.display = 'none';
       }, 1500);
     })
     .catch(error => {
       // An error happened.
       console.log(error);
-      console.log('Logout Failed');
+      // console.log('Logout Failed');
     });
 }
 //=================== LOG OUT LOGIC END ==================
 
 function onShowSignUpWindow() {
-  console.log('мы нажали кнопку signUp');
   Refs.signUpDiv.classList.remove('--is-hidden');
   Refs.logInDiv.classList.add('--is-hidden');
 }
 
 function onShowLogInWindow() {
-  console.log('мы нажали кнопку logIn');
   Refs.signUpDiv.classList.add('--is-hidden');
   Refs.logInDiv.classList.remove('--is-hidden');
 }
 
-function onOpenModal() {
+export function onOpenModal() {
   Refs.backdrop.classList.toggle('backdrop--is-hidden');
   window.addEventListener('keydown', closeModalByEsc);
 }
@@ -369,10 +264,18 @@ function onBackdropClick(event) {
   }
 }
 
-function addMovieInfoToDataBaseWatch(movieID, title, img, genres, year, uid) {
+export function addMovieInfoToDataBaseWatch(
+  movieID,
+  title,
+  img,
+  genres,
+  year,
+  uid
+) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/watched' + `/${movieID}`), {
+    movieID,
     title,
     img,
     genres,
@@ -380,16 +283,24 @@ function addMovieInfoToDataBaseWatch(movieID, title, img, genres, year, uid) {
   });
 }
 
-function removeMovieIDFromWatched(uid, movieID) {
+export function removeMovieIDFromWatched(uid, movieID) {
   const db = getDatabase();
 
   remove(ref(db, 'users/' + uid + '/watched' + `/${movieID}`));
 }
 
-function addMovieInfoToDataBaseQueue(movieID, title, img, genres, year, uid) {
+export function addMovieInfoToDataBaseQueue(
+  movieID,
+  title,
+  img,
+  genres,
+  year,
+  uid
+) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/queue' + `/${movieID}`), {
+    movieID,
     title,
     img,
     genres,
@@ -397,7 +308,7 @@ function addMovieInfoToDataBaseQueue(movieID, title, img, genres, year, uid) {
   });
 }
 
-function removeMovieIDFromQueue(uid, movieID) {
+export function removeMovieIDFromQueue(uid, movieID) {
   const db = getDatabase();
 
   remove(ref(db, 'users/' + uid + '/queue' + `/${movieID}`));

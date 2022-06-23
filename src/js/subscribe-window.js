@@ -5,7 +5,7 @@ const describeCloseBtn = document.querySelector('.describe-modal__close');
 
 setTimeout(() => {
   describeModal.classList.remove('isHidden');
-}, 8000);
+}, 11000);
 
 function closeModal() {
   describeModal.classList.add('isHidden');
@@ -59,5 +59,5 @@ function onFormSubmit(event) {
   event.currentTarget.reset();
   localStorage.removeItem(KEY);
 
-  console.log(inputData);
+  closeModal();
 }

@@ -5,6 +5,9 @@
   padding-left: 20px;
   padding-right: 20px;
   align-items: center;
+
+
+
   @media screen and (min-width: 320px) {
     max-width: 320px;
   }
@@ -23,7 +26,7 @@
 .header-section {
 
   padding-top: 15px;
-  height: 300px;
+  height: 250px;
 
   @media screen and (min-width: 768px){
   padding-top: 30px;
@@ -94,7 +97,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .header-logo {
@@ -102,7 +104,6 @@
   align-items: center;
   color: tomato;
 }
-
 .header-logo__icon {
   margin-right: 12px;
   position: relative;
@@ -140,7 +141,7 @@
 
 .header-btns__item {
   &:not(:last-child) {
-    margin-right: 39px;
+    margin-right: 20px;
     
   }
 }
@@ -274,7 +275,7 @@ margin-top: 20px;
     -ms-transform-origin: 50% 100%;
     -webkit-transform-origin: 50% 100%;  
     
-    transition-delay: 3s;
+    
 }
  
 @keyframes bounce {

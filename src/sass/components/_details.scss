@@ -13,7 +13,7 @@
 
         overflow-y: scroll;
         opacity: 0;
-        transition: opacity 1000ms linear;
+        transition: opacity 500ms linear;
       
         background-repeat: no-repeat;
         background-size: cover;
@@ -33,7 +33,7 @@
 
         background-color: rgb(255, 255, 255);
         opacity: 0;
-        transition: opacity 1000ms linear;
+        transition: opacity 500ms linear;
 
         box-shadow: 5px 5px 5px 8px $accent-color,-5px -5px -5px 8px $accent-color;
     
@@ -115,6 +115,7 @@
 
     &__info{
         display: block;
+        color: black;
 
         @include respond-to (tablet){
             width: 264px;
@@ -164,6 +165,14 @@
             font-size: 12px;
             line-height: 1.17;
             font-weight: 500;
+
+            @include respond-to(desktop){
+                width: 130px;
+            }
+
+            @include respond-to(desktop){
+                width: 200px;
+            }
         }
 
         &-vote{

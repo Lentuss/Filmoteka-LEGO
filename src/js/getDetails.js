@@ -47,11 +47,12 @@ const sliderTrack = document.querySelector('.slider-track');
 
 const clickForDetails = e => {
   e.preventDefault();
-  // if (e.target.classList.contains('main__movie-card-item')) {
-  //   console.log(e.target);
+  const movieCard = e.target;
+  if (!movieCard.classList.contains('main__movie-img')) {
+    console.log(e.target);
 
-  //   return;
-  // }
+    return;
+  }
   windowAppear();
 
   const uid = auth.lastNotifiedUid;

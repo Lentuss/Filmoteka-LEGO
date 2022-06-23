@@ -6,10 +6,10 @@ import './js/getFilmsApiService';
 import './js/renderFilms';
 import './js/getTrendFilms';
 import './js/filmSearch';
+import './js/slider';
 import './js/loginWindow';
 import './js/getDetails';
 import './js/getGenres';
-import './js/slider';
 import './js/makeSort';
 import './js/myLibrary';
 

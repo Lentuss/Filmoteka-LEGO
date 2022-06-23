@@ -5,8 +5,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 const firebaseConfig = {
   apiKey: 'AIzaSyAXr3vyab8PJtuI-kO5zXVUNDPWQzN3ayY',
   authDomain: 'filmoteka-group5.firebaseapp.com',
-  databaseURL:
-    'https://filmoteka-group5-default-rtdb.europe-west1.firebasedatabase.app',
+  databaseURL: 'https://filmoteka-group5-default-rtdb.europe-west1.firebasedatabase.app',
   projectId: 'filmoteka-group5',
   storageBucket: 'filmoteka-group5.appspot.com',
   messagingSenderId: '217077508176',
@@ -21,21 +20,15 @@ const uid = auth.lastNotifiedUid;
 import { renderNewPage } from './getTrendFilms';
 import Notiflix from 'notiflix';
 
-const myLibBtn = document.querySelector(
-  '[data-action="header-library-button"]'
-);
+const myLibBtn = document.querySelector('[data-action="header-library-button"]');
 const headerSectionRef = document.querySelector('.header-section');
 const homeBtn = document.querySelector('[data-action="header-home-button"]');
 const headerMain = document.querySelector('.header-main');
 const headLib = document.querySelector('.header-main__library');
 const listEl = document.querySelector('.main__movie-card-list');
 const mainBtnList = document.querySelector('.main__button-list');
-const headerLibraryWatchedBtn = document.querySelector(
-  '#header-libraryWatched__btn'
-);
-const headerLibraryQueueBtn = document.querySelector(
-  '#header-libraryQueue__btn'
-);
+const headerLibraryWatchedBtn = document.querySelector('#header-libraryWatched__btn');
+const headerLibraryQueueBtn = document.querySelector('#header-libraryQueue__btn');
 const loaderEl = document.querySelector('.loader');
 const btnDayEl = document.querySelector('.trends-of-day');
 const btnWeekEl = document.querySelector('.trends-of-week');
@@ -51,19 +44,6 @@ headerLibraryWatchedBtn.addEventListener('click', onCLickWatchedBtn);
 headerLibraryQueueBtn.addEventListener('click', onClickQueueBtn);
 
 function onClickQueueBtn(e) {
-  // const allInfo = ref(db, 'users/' + uid);
-  // onValue(allInfo, snapshot => {
-  //   const data = snapshot.val();
-  //   // console.log(data);
-  //   if (!data) {
-  //     setTimeout(() => {
-  //       listEl.innerHTML = `<p class="renderEmpty">Library is empty</p>`;
-  //     }, 1000);
-  //     return;
-  //   }
-  //   watchedDataBase = data.watched;
-  //   queueDataBase = data.queue;
-  // });
   headerLibraryQueueBtn.classList.add('--is-active');
   headerLibraryWatchedBtn.classList.remove('--is-active');
   listEl.innerHTML = '';
@@ -79,19 +59,6 @@ function onClickQueueBtn(e) {
 }
 
 function onCLickWatchedBtn(e) {
-  // const allInfo = ref(db, 'users/' + uid);
-  // onValue(allInfo, snapshot => {
-  //   const data = snapshot.val();
-  //   // console.log(data);
-  //   if (!data) {
-  //     setTimeout(() => {
-  //       listEl.innerHTML = `<p class="renderEmpty">Library is empty</p>`;
-  //     }, 1000);
-  //     return;
-  //   }
-  //   watchedDataBase = data.watched;
-  //   queueDataBase = data.queue;
-  // });
   headerLibraryQueueBtn.classList.remove('--is-active');
   headerLibraryWatchedBtn.classList.add('--is-active');
   listEl.innerHTML = '';

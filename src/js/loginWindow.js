@@ -35,8 +35,7 @@ import { getDatabase, ref, set, onValue, remove } from 'firebase/database';
 const firebaseConfig = {
   apiKey: 'AIzaSyAXr3vyab8PJtuI-kO5zXVUNDPWQzN3ayY',
   authDomain: 'filmoteka-group5.firebaseapp.com',
-  databaseURL:
-    'https://filmoteka-group5-default-rtdb.europe-west1.firebasedatabase.app',
+  databaseURL: 'https://filmoteka-group5-default-rtdb.europe-west1.firebasedatabase.app',
   projectId: 'filmoteka-group5',
   storageBucket: 'filmoteka-group5.appspot.com',
   messagingSenderId: '217077508176',
@@ -49,9 +48,7 @@ const auth = getAuth(app);
 
 const Refs = {
   headLogInBtn: document.querySelector('[data-action="header-login-button"]'),
-  headLibraryBtn: document.querySelector(
-    '[data-action="header-library-button"]'
-  ),
+  headLibraryBtn: document.querySelector('[data-action="header-library-button"]'),
   backdrop: document.querySelector('[data-backdrop]'),
   closeModalBtn: document.querySelector('[data-modal-close]'),
   signUpBtnWindow: document.querySelector('.signUpBtn-JS'),
@@ -80,10 +77,7 @@ onAuthStateChanged(auth, user => {
     onValue(allInfo, snapshot => {
       const data = snapshot.val();
 
-      const userLifeTime = flatpickr.formatDate(
-        new Date(user.metadata.creationTime),
-        'F j, Y'
-      );
+      const userLifeTime = flatpickr.formatDate(new Date(user.metadata.creationTime), 'F j, Y');
       const userProfile = `
   <p class="logout-info">
     User Em@il <span class="user-data">${user.email}</span>
@@ -139,8 +133,7 @@ function onSignUpSubmit(e) {
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
-        // ..
+        Notiflix.Notify.info('User Already Exist');
       });
 
     onCloseModal();
@@ -162,37 +155,41 @@ function onLogInSubmit(e) {
   const email = loginForm['input-email'].value;
   const password = loginForm['input-password'].value;
 
-  signInWithEmailAndPassword(getAuth(), email, password)
-    .then(userCredential => {
-      // Signed in
-      const user = userCredential.user;
+  if (!email || !password) {
+    Notiflix.Notify.warning('Fields cannot be empty ');
+  } else {
+    signInWithEmailAndPassword(getAuth(), email, password)
+      .then(userCredential => {
+        // Signed in
+        const user = userCredential.user;
 
-      formData[e.target.email.name] = e.target.email.value;
-      formData[e.target.password.name] = e.target.password.value;
-      const savedString = JSON.stringify(formData);
+        formData[e.target.email.name] = e.target.email.value;
+        formData[e.target.password.name] = e.target.password.value;
+        const savedString = JSON.stringify(formData);
 
-      const userDataBase = {
-        date: new Date().toJSON(),
-        movieID: savedString,
-        user: user,
-      };
-      // console.log(userDataBase);
+        const userDataBase = {
+          date: new Date().toJSON(),
+          movieID: savedString,
+          user: user,
+        };
+        // console.log(userDataBase);
 
-      Notiflix.Notify.info('Enter Success');
-      onCloseModal();
-      setTimeout(() => {
-        loginForm.reset();
-      }, 1500);
+        Notiflix.Notify.info('Enter Success');
+        onCloseModal();
+        setTimeout(() => {
+          loginForm.reset();
+        }, 1500);
 
-      // ...
-    })
-    .catch(error => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
-      Notiflix.Notify.failure('Login Failed wrong email or password');
-    });
+        // ...
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+        Notiflix.Notify.failure('Login Failed wrong email or password');
+      });
+  }
 }
 //=================== LOGIN LOGIC END ==================
 
@@ -264,14 +261,7 @@ function onBackdropClick(event) {
   }
 }
 
-export function addMovieInfoToDataBaseWatch(
-  movieID,
-  title,
-  img,
-  genres,
-  year,
-  uid
-) {
+export function addMovieInfoToDataBaseWatch(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/watched' + `/${movieID}`), {
@@ -289,14 +279,7 @@ export function removeMovieIDFromWatched(uid, movieID) {
   remove(ref(db, 'users/' + uid + '/watched' + `/${movieID}`));
 }
 
-export function addMovieInfoToDataBaseQueue(
-  movieID,
-  title,
-  img,
-  genres,
-  year,
-  uid
-) {
+export function addMovieInfoToDataBaseQueue(movieID, title, img, genres, year, uid) {
   const db = getDatabase();
 
   set(ref(db, 'users/' + uid + '/queue' + `/${movieID}`), {

@@ -26,6 +26,9 @@ function onBtnDayClick() {
   getFilmsApiService.trendsOfDay();
   btnDayEl.classList.add('--is-hidden');
   btnWeekEl.classList.add('--is-hidden');
+  btnDayEl.classList.add('is-active');
+  btnWeekEl.classList.remove('is-active');
+  loaderEl.style.display = 'block';
 
   renderNewPage();
   listEl.classList.add('--is-hidden');
@@ -41,6 +44,10 @@ function onBtnWeekClick() {
   getFilmsApiService.trendsOfWeek();
   btnDayEl.classList.add('--is-hidden');
   btnWeekEl.classList.add('--is-hidden');
+  btnDayEl.classList.remove('is-active');
+  btnWeekEl.classList.add('is-active');
+  loaderEl.style.display = 'block';
+
   renderNewPage();
   listEl.classList.add('--is-hidden');
 

@@ -1,4 +1,3 @@
-// убрать margin у наташи
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
@@ -38,6 +37,8 @@ const headerLibraryQueueBtn = document.querySelector(
   '#header-libraryQueue__btn'
 );
 const loaderEl = document.querySelector('.loader');
+const btnDayEl = document.querySelector('.trends-of-day');
+const btnWeekEl = document.querySelector('.trends-of-week');
 
 loaderEl.style.display = 'none';
 
@@ -50,19 +51,19 @@ headerLibraryWatchedBtn.addEventListener('click', onCLickWatchedBtn);
 headerLibraryQueueBtn.addEventListener('click', onClickQueueBtn);
 
 function onClickQueueBtn(e) {
-  const allInfo = ref(db, 'users/' + uid);
-  onValue(allInfo, snapshot => {
-    const data = snapshot.val();
-    // console.log(data);
-    if (!data) {
-      setTimeout(() => {
-        listEl.innerHTML = `<p class="renderEmpty">Library is empty</p>`;
-      }, 1000);
-      return;
-    }
-    watchedDataBase = data.watched;
-    queueDataBase = data.queue;
-  });
+  // const allInfo = ref(db, 'users/' + uid);
+  // onValue(allInfo, snapshot => {
+  //   const data = snapshot.val();
+  //   // console.log(data);
+  //   if (!data) {
+  //     setTimeout(() => {
+  //       listEl.innerHTML = `<p class="renderEmpty">Library is empty</p>`;
+  //     }, 1000);
+  //     return;
+  //   }
+  //   watchedDataBase = data.watched;
+  //   queueDataBase = data.queue;
+  // });
   headerLibraryQueueBtn.classList.add('--is-active');
   headerLibraryWatchedBtn.classList.remove('--is-active');
   listEl.innerHTML = '';
@@ -78,19 +79,19 @@ function onClickQueueBtn(e) {
 }
 
 function onCLickWatchedBtn(e) {
-  const allInfo = ref(db, 'users/' + uid);
-  onValue(allInfo, snapshot => {
-    const data = snapshot.val();
-    // console.log(data);
-    if (!data) {
-      setTimeout(() => {
-        listEl.innerHTML = `<p class="renderEmpty">Library is empty</p>`;
-      }, 1000);
-      return;
-    }
-    watchedDataBase = data.watched;
-    queueDataBase = data.queue;
-  });
+  // const allInfo = ref(db, 'users/' + uid);
+  // onValue(allInfo, snapshot => {
+  //   const data = snapshot.val();
+  //   // console.log(data);
+  //   if (!data) {
+  //     setTimeout(() => {
+  //       listEl.innerHTML = `<p class="renderEmpty">Library is empty</p>`;
+  //     }, 1000);
+  //     return;
+  //   }
+  //   watchedDataBase = data.watched;
+  //   queueDataBase = data.queue;
+  // });
   headerLibraryQueueBtn.classList.remove('--is-active');
   headerLibraryWatchedBtn.classList.add('--is-active');
   listEl.innerHTML = '';
@@ -156,10 +157,14 @@ function onClickHomeBtn(e) {
   listEl.classList.add('--is-hidden');
   headerLibraryWatchedBtn.classList.remove('--is-active');
   headerLibraryQueueBtn.classList.remove('--is-active');
+  btnWeekEl.classList.add('--is-hidden');
+  btnDayEl.classList.add('--is-hidden');
 
   setTimeout(() => {
     listEl.classList.remove('--is-hidden');
     loaderEl.style.display = 'none';
+    btnWeekEl.classList.remove('--is-hidden');
+    btnDayEl.classList.remove('--is-hidden');
   }, 1000);
 }
 

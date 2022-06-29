@@ -24,7 +24,7 @@ if (stat) {
   onLightSwitchClick();
 }
 
-function onDarkSwitchClick() {
+export function onDarkSwitchClick() {
   const movieTitles = document.querySelectorAll('.main__movie-title');
 
   body.classList.add('dark-theme');
@@ -39,7 +39,7 @@ function onDarkSwitchClick() {
   footer.classList.add('footer-dark');
   footer.classList.remove('footer-light');
 }
-function onLightSwitchClick() {
+export function onLightSwitchClick() {
   const movieTitles = document.querySelectorAll('.main__movie-title');
 
   body.classList.add('light-theme');

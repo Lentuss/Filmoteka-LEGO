@@ -1,3 +1,6 @@
+import { onDarkSwitchClick, onLightSwitchClick } from './themeSwitcher';
+const checkbox = document.querySelector('input[type="checkbox"]');
+
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
@@ -49,7 +52,11 @@ function onClickQueueBtn(e) {
   listEl.innerHTML = '';
   loaderEl.style.display = 'block';
   createMarkUpLibraryList(queueDataBase);
-
+  if (checkbox.checked) {
+    onDarkSwitchClick();
+  } else if (!checkbox.checked) {
+    onLightSwitchClick();
+  }
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
@@ -64,6 +71,11 @@ function onCLickWatchedBtn(e) {
   listEl.innerHTML = '';
   loaderEl.style.display = 'block';
   createMarkUpLibraryList(watchedDataBase);
+  if (checkbox.checked) {
+    onDarkSwitchClick();
+  } else if (!checkbox.checked) {
+    onLightSwitchClick();
+  }
 
   listEl.classList.add('--is-hidden');
 
@@ -102,6 +114,11 @@ function onClickLibraryBtn(e) {
     queueDataBase = data.queue;
   });
   createMarkUpLibraryList(watchedDataBase);
+  if (checkbox.checked) {
+    onDarkSwitchClick();
+  } else if (!checkbox.checked) {
+    onLightSwitchClick();
+  }
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
@@ -121,6 +138,11 @@ function onClickHomeBtn(e) {
   homeBtn.classList.add('is-current');
   myLibBtn.classList.remove('is-current');
   renderNewPage();
+  if (checkbox.checked) {
+    onDarkSwitchClick();
+  } else if (!checkbox.checked) {
+    onLightSwitchClick();
+  }
   listEl.classList.add('--is-hidden');
   headerLibraryWatchedBtn.classList.remove('--is-active');
   headerLibraryQueueBtn.classList.remove('--is-active');

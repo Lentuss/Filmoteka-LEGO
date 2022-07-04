@@ -2,6 +2,9 @@ import { BASE_URL } from './apiVariables';
 import GetFilmsApiService from './getFilmsApiService';
 import { createListMarkup } from './renderFilms';
 
+import { onDarkSwitchClick, onLightSwitchClick } from './themeSwitcher';
+const checkbox = document.querySelector('input[type="checkbox"]');
+
 const listEl = document.querySelector('.main__movie-card-list');
 const btnDayEl = document.querySelector('.trends-of-day');
 const btnWeekEl = document.querySelector('.trends-of-week');
@@ -31,6 +34,11 @@ function onBtnDayClick() {
   loaderEl.style.display = 'block';
 
   renderNewPage();
+  if (checkbox.checked) {
+    onDarkSwitchClick();
+  } else if (!checkbox.checked) {
+    onLightSwitchClick();
+  }
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
@@ -49,6 +57,11 @@ function onBtnWeekClick() {
   loaderEl.style.display = 'block';
 
   renderNewPage();
+  if (checkbox.checked) {
+    onDarkSwitchClick();
+  } else if (!checkbox.checked) {
+    onLightSwitchClick();
+  }
   listEl.classList.add('--is-hidden');
 
   setTimeout(() => {
@@ -95,7 +108,4 @@ const callback = function (entries, observer) {
   }
 };
 
-const observer = new IntersectionObserver(
-  callback,
-  options.intersectionObserver
-);
+const observer = new IntersectionObserver(callback, options.intersectionObserver);
